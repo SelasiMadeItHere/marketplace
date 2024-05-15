@@ -2,7 +2,7 @@
 
 require_once './config.php';
 
-$action = $_GET['action'];
+$action = isset($_GET['action']);
 
 if($action == 'staffLogin'){
    
@@ -35,7 +35,7 @@ if($action == 'staffLogin'){
                         echo "Redirecting to Finance page";
                         header("Location: ../../Frontend/Admin/AdminDash.html");
                         exit();
-                    case 'REG':
+                    case 'Registrar':
                         echo "Redirecting to Registrar page";
                         header("Location: ../../Frontend/Admin/registrar.html");
                         exit();
@@ -57,27 +57,6 @@ if($action == 'staffLogin'){
         $stmt->close();
     }
 }
-
-// if($action == 'staffLogin'){
-//     extract($_POST);
-    
-//     $user = $conn->query("SELECT * FROM tbl_requests_officers WHERE username='$username'");
-//     if($user->num_rows > 0){
-//         $row = $user->fetch_assoc();
-//         if(password_verify($password, $row['password'])){
-//             echo 'success';
-//         } else {
-//            echo  "Password do not match!";
-//         }
-//     } else {
-//         echo "Invalid Username";
-//     }
-
-//     // $p = "11111";
-//     // $hp = '$2y$10$RO0cjiACXYYPo51sNQAUMumnb.qYvqxcbDETpLzbxi0dKGanZyVZu';
-//     // echo !password_verify($p, $hp);
-
-// }
 
 if($action == 'staffRegister'){
     extract($_POST);
@@ -120,8 +99,6 @@ if($action == 'IDCardRenewal'){
 
 
 
-
-
     //Inserting Data
     $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
     $stmt = $conn->prepare($query);
@@ -140,12 +117,59 @@ if($action == 'IDCardRenewal'){
     }
 }
 
-if($action == 'defermentApplication'){
+if($action == 'introductoryLetter'){
+
+    //Generating rqst ID
+    $rqst_id = $stuid . '-INTRO-'.substr(uniqid(), 0, 3);
+
+    extract($_POST);
+
+
+    $query = "INSERT INTO tbl_introductory_requests (rqst_id, stuid, fname, phone, email, purpose, program, level, reason, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
+    $stmt = $conn->prepare($query);
+
+    $stmt->bind_param('ssssiiisssss', $rqst_id, $stuid, $phone, $csem, $defsem, $defyear, $retsem, $retyear, $reason, $created_at);
+
+
+
+    if ($stmt->execute()) {
+    echo '
+        <script>
+            alert("Request made successfully.")
+        </script>
+    ';
+    } else {
+        echo "Error creating request.";
+    }
+
+    $stmt->close();
+    $conn->close();
 
 }
 
 
 if($action == 'defermentApplication'){
+
+    //Generating rqst ID
+    $rqst_id = $stuid . '-DEF-'.substr(uniqid(), 0, 3);
+    extract($_POST);
+
+    $query = "INSERT INTO tbl_deferments (rqst_id, stuid, phone, clevel, csem, mail, defsem, academicyear, retsem, retyear, reason, created_at, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, 'Pending')";
+    $stmt = $conn->prepare($query);
+
+    $stmt->bind_param('ssssisisisss', $rqst_id, $stuid, $phone, $clevel, $csem, $mail, $defsem, $academicyear, $retsem, $retyear, $reason, (new DateTime())->format('Y-m-d')); $receipt_path;
+
+    if ($stmt->execute()){
+        echo '
+        <script>
+            alert("Info has successfully been added");
+            location.href="../../Frontend/Client/NewRequest.html";
+        </script>';
+
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
 
 }
 

@@ -9,11 +9,11 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-    <title>Admin Transcript Requests</title>
+    <title>Transcript Requests</title>
 </head>
 
 <body>
-    <div class=' grid grid-cols-9 h-screen pb-12 min-h-screen'>
+    <div class=' grid grid-cols-4 h-screen pb-12 min-h-screen'>
         <div>
             <!-- <Navbar /> -->
             <div class='w-full h-[80px] bg-white drop-shadow-xl z-50 fixed top-0'>
@@ -38,23 +38,24 @@
 
                     <ul class=' text-white px-4  cursor-pointer '>
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDash.html"> 
+                            <a href="./AdminDash.html">
                                 <DashboardIcon fontSize='large' class=' ' />
-                                DASHBOARD</Link>
+                                DASHBOARD
+                            </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
                             <a href="./AdminCardRenewal.html">
                                 <CreditCardIcon fontSize='large' class=' ' />
                                 ID CARD RENEWALS
-                                </Link>
+                            </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
                             <a href="./AdminTranscript.html">
                                 <CardMembershipRounded fontSize='large' class='' />
                                 TRANSCRIPT APPLICATIONS
-                                </Link>
+                            </a>
                         </li>
 
 
@@ -62,27 +63,28 @@
                             <a href="./AdminCertificate.html">
                                 <MilitaryTechIcon fontSize='large' class=' ' />
                                 CERTIFICATE APPLICATION
-                                </Link>
+                            </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
                             <a href="./AdminDeferment.html">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 DEFERMENT APPLICATION
-                                </Link>
+                            </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
                             <a href="./AdminIntroductory.html">
                                 <ExitToAppIcon fontSize='large' class=' ' />
-                                INTRODUCTORY LETTER</Link>
+                                INTRODUCTORY LETTER
+                            </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
                             <a href="/admindeferment">
                                 <Settings fontSize='large' class=' pr-2' />
                                 SETTINGS
-                                </Link>
+                            </a>
                         </li>
                     </ul>
 
@@ -119,25 +121,25 @@
                 <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
                 <TableContainer>
                     <table>
-                        <th class=" w-full">
-                            <tr>
-                                <td class=' border-2 text-bold p-2'>SN</td>
-                                <td class=' border-2 text-bold p-2'>ID NO.
-                                </td>
-                                <td class=' border-2 text-bold p-2'>REQUEST
+                        <th class=" w-full ">
+                            <tr class=" text-center">
+                                <th class=' border-2 text-bold p-2'></th>
+                                <th class=' border-2 text-bold p-2'>ID NO.
+                                </th>
+                                <th class=' border-2 text-bold p-2'>REQUEST
                                     ID</td>
-                                <td class=' border-2 text-bold p-2'>CONTACT
-                                </td>
-                                <td class=' border-2 text-bold p-2'>PROGRAM
-                                </td>
-                                <td class=' border-2 text-bold p-2'>LEVEL
-                                </td>
-                                <td class=' border-2 text-bold p-2'>
-                                    DELIVERY</td>
-                                <td class=' border-2 text-bold p-2'>STATUS
-                                </td>
-                                <td class=' border-2 text-bold p-2'>ACTION
-                                </td>
+                                <th class=' border-2 text-bold p-2'>CONTACT
+                                </th>
+                                <th class=' border-2 text-bold p-2'>PROGRAM
+                                </th>
+                                <th class=' border-2 text-bold p-2'>LEVEL
+                                </th>
+                                <th class=' border-2 text-bold p-2'>
+                                    DELIVERY</th>
+                                <th class=' border-2 text-bold p-2'>STATUS
+                                </th>
+                                <th class=' border-2 text-bold p-2'>ACTION
+                                </th>
                             </tr>
                         </th>
 

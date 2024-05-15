@@ -49,7 +49,7 @@
                                 <label>ID Number:</label>
                             </div>
                             <div class='grid-rows-2'>
-                                <input name='fname' name="stuid"
+                                <input name='stuid' name="stuid"
                                     class=' border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' />
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <label>Phone Number</label>
                             </div>
                             <div class='grid-rows-2'>
-                                <input type='number' name="phone"
+                                <input type='text' name="phone"
                                     class=' border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' />
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                             <label>I am planning to return in semester/trimester:</label>
                         </div>
                         <div class='grid-rows-2'>
-                            <select name='program' class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%]
+                            <select name='retsem' class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%]
                                 focus:outline-blue-800 py-1 px-2 '>
                                 <option> --SELECT--</option>
                                 <option name='Sem1' value={1}> Semester 1</option>
@@ -172,7 +172,7 @@
                             <label>of Academic Year</label>
                         </div>
                         <div class='grid-rows-2'>
-                            <input type="number" name="academicyear" defaultValue={2024}
+                            <input type="number" name="retyear" defaultValue={2024}
                                 class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 ' />
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                                         <label>Reason for Deferment</label>
                                     </div>
 
-                                    <select name='program' value={reason} class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[40%]
+                                    <select name='reason' value={reason} class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[40%]
                                         focus:outline-blue-800 py-1 '>
                                         <option> --SELECT--</option>
                                         <option name='financial'> Financial</option>
@@ -215,6 +215,34 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+                    </div>
+
+
+                    <div class='grid-rows-3 pl-12'>
+                        <!-- {/* <TextareaAutosize name='reason' value={reason} onChange={(e)=> setReason(e.target.value)}
+                            class=' lg:w-full focus:outline-blue-800 lg:h-9 border-2 border-gray-700 rounded-md'
+                            minRows={9} /> */} -->
+                    </div>
+                </div>
+                <div class=' grid-rows-2 pb-12 '>
+                    <div class='grid-rows-1'>
+                        <p class=' font-bold text-sky-800 p-8'>PROOF OF PAYMENT</p>
+
+
+
+                        <div class=' grid-rows-2 pb-6'>
+                            <div class='grid-rows-1'>
+
+
+                                <div class='grid-rows-2 px-12'>
+                                    <input type="file" class=" border rounded-md bg-sky-700 text-white p-2" name="receipt_path">
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
 
@@ -226,8 +254,8 @@
                 </div>
 
                 <div class=' text-center'>
-                    <Button onClick={DefSubmit} name='submit'
-                        class=' bg-sky-700 p-3 text-white rounded-md'>SUBMIT</Button>
+                    <Button name='submit'
+                        class=' bg-sky-700 p-2 text-white rounded-md'>SUBMIT</Button>
                 </div>
             </form>
         </div>
