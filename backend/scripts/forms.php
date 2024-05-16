@@ -122,78 +122,45 @@ if($action == 'IDCardRenewal'){
     }
 }
 
-if($action == 'introductoryLetter'){
+if ($action == 'introductoryLetter') {
+    $uploadDirectory = '../uploads/';
+    $uploadedFileName = $_FILES['receipt_path']['name'];
+    $uploadedFilePath = $uploadDirectory . $uploadedFileName.(new DateTime())->format('Y-m-d-h-m-s');
 
-    //Generating rqst ID
-    $rqst_id = $stuid . '-INTRO-'.substr(uniqid(), 0, 3);
+    if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
+        // File successfully uploaded, proceed with database insertion
+        extract($_POST);
 
-    extract($_POST);
+        $query = "INSERT INTO tbl_introductory_requests (rqst_id, stuid, name, phone, email, purpose, raddress, bname, pnumber, eaddress, receipt_path, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
+        $stmt = $conn->prepare($query);
 
+        // Generating rqst ID
+        function generateRandomString($length) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            return $randomString;
+        }
+        $rqst_id = $stuid . '-INTRO-' . generateRandomString(5);
 
-    $query = "INSERT INTO tbl_introductory_requests (rqst_id, stuid, fname, phone, email, purpose, program, level, reason, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
-    $stmt = $conn->prepare($query);
+        // Bind parameters
+        $stmt->bind_param('sssissssssss', $rqst_id, $stuid, $name, $phone, $email, $purpose, $raddress, $bname, $pnumber, $eaddress, $uploadedFilePath, $created_at);
 
-    $stmt->bind_param('ssssiiisssss', $rqst_id, $stuid, $phone, $csem, $defsem, $defyear, $retsem, $retyear, $reason, $created_at);
+        if ($stmt->execute()) {
+            echo '<script>alert("Request made successfully.")</script>';
+        } else {
+            echo "Error creating request.";
+        }
 
-
-
-    if ($stmt->execute()) {
-    echo '
-        <script>
-            alert("Request made successfully.")
-        </script>
-    ';
+        $stmt->close();
     } else {
-        echo "Error creating request.";
+        echo "Error uploading file.";
     }
 
-    $stmt->close();
     $conn->close();
-
 }
-
-
-// if($action == 'defermentApplication'){
-
-//     // Generating rqst ID
-    
-//     extract($_POST);
-
-//        // Processing uploaded file
-//        $uploadDirectory = '../../uploads'; // Directory to save uploaded files
-//        $uploadedFileName = $_FILES['reciept_path']['name'];
-//        $uploadedFilePath = $uploadDirectory . $uploadedFileName;
-
-//        if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
-
-
-//     $created_at = (new DateTime())->format('Y-m-d');
-
-
-
-//     $query = "INSERT INTO tbl_deferments (rqst_id, stuid, phone, clevel, csem, mail, defsem, academicyear, retsem, retyear, reason, created_at, reciept_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, 'Pending')";
-//     $stmt = $conn->prepare($query);
-
-//     $rqst_id = $stuid . '-DEF-'.substr(uniqid(), 0, 3);
-
-//     $stmt->bind_param('ssssisiisssss', $rqst_id, $stuid, $phone, $clevel, $csem, $mail, $defsem, $academicyear, $retsem, $retyear, $reason, $created_at, $reciept_path);
-
-//     if ($stmt->execute()){
-//         echo '
-//         <script>
-//             alert("Info has successfully been added");
-
-//         </script>';
-
-//     } else {
-//         echo "Error: " . $stmt->error;
-//     }
-
-//     $stmt->close();
-// }
-//     $conn->close();
-
-// }
 
 if ($action == 'defermentApplication') {
     // Processing uploaded file
@@ -248,3 +215,58 @@ if ($action == 'defermentApplication') {
 
     $conn->close();
 }
+
+if ($action == 'certificateApplication') {
+    // Processing uploaded file
+    $uploadDirectory = '../uploads/'; // Directory to save uploaded files
+    $uploadedFileName = $_FILES['receipt_path']['name'];
+    $uploadedFilePath = $uploadDirectory . $uploadedFileName;
+
+    if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
+        // File uploaded successfully, continue with database insertion
+
+        
+
+        // Extracting form data
+        extract($_POST);
+
+        $created_at = (new DateTime())->format('Y-m-d');
+
+        $query = "INSERT INTO tbl_certificate (rqst_id, stuid, phone, mail, retyear, reason, created_at, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        // Generating request ID
+        function generateRandomString($length) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            return $randomString;
+        }
+        $rqst_id = $stuid . '-CERT-' . generateRandomString(5);
+
+        // Function to generate random string of specified length
+
+
+        $stmt->bind_param('ssssssss', $rqst_id, $stuid, $phone, $mail, $created_at, $uploadedFilePath, $status);
+
+        if ($stmt->execute()) {
+            echo '
+            <script>
+                alert("Info has successfully been added");
+                location.href="../../Frontend/Client/NewRequest.html";
+            </script>';
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        // Failed to move uploaded file
+        echo "Error: Failed to upload file.";
+    }
+
+    $conn->close();
+}
+

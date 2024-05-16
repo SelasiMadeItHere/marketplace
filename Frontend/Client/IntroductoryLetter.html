@@ -8,7 +8,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-    <title>Document</title>
+    <title>Introductory Letter Application</title>
 </head>
 
 <body>
@@ -33,10 +33,11 @@
         </div>
 
         <div class=' text-center text-sky-800 text-2xl font-semibold py-6 md:pt-36 lg:pt-36'>
-            FILL OUT THE FORM TO APPLY FOR AN INTRODUCTORY LETTER        </div>
+            FILL OUT THE FORM TO APPLY FOR AN INTRODUCTORY LETTER </div>
 
         <div class=" pt-12">
-            <form onSubmit={submit} class='bg-white rounded-xl shadow-md mx-4 md:mx-8 lg:mx-24 p-4 md:p-12' method="post" action="../../backend/scripts/forms.php?action=introductoryLetter">
+            <form class='bg-white rounded-xl shadow-md mx-4 md:mx-8 lg:mx-24 p-4 md:p-12 pb-3' method="post" enctype="multipart/form-data"
+                action="../../backend/scripts/forms.php?action=introductoryLetter">
                 <p class=' font-bold text-sky-800 p-8'>PERSONAL IDENTIFICATION</p>
 
                 <div class='grid text-md'>
@@ -51,16 +52,27 @@
 
                         <div class='pb-4 '>
                             <label>Name</label>
-                            <input name='fname'
+                            <input name='name'
                                 class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
                                 placeholder='JOHN DOE' />
                         </div>
+                    </div>
 
+
+                    <p class=' font-bold text-sky-800 p-8'>CONTACT INFORMATION</p>
+                    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
                         <div class='pb-4'>
                             <label>Email</label>
                             <input name='email'
                                 class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
                                 placeholder='youremail@email.com' />
+                        </div>
+
+                        <div class='pb-4 '>
+                            <label>Phone</label>
+                            <input name='phone' type="tel"
+                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
+                                placeholder='JOHN DOE' />
                         </div>
                     </div>
 
@@ -68,13 +80,12 @@
                     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
 
                         <div class='pb-4'>
-                            <label>Purpose of Introductory Letter</label>
                             <Select name='purpose'
                                 class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder='+123 456 789 10'>
-                                <option value='For Bank'>For Bank</option>
-                                <option value='Resident Permit'>For Resident Permit</option>
-                                <option value='Visa'>For VISA Application</option>
+                                >
+                                <option name='For Bank'>For Bank</option>
+                                <option name='Resident Permit'>For Resident Permit</option>
+                                <option name='Visa'>For VISA Application</option>
                             </Select>
                         </div>
                     </div>
@@ -86,107 +97,75 @@
 
 
                 <!-- {/* Reminder: Request for deferment form form DFA*/} -->
-                <p class=' font-bold text-sky-800 p-8'>BANK INFORMATION</p>
+                <div id="bankinfo">
+                    <p class=' font-bold text-sky-800 p-8'>BANK INFORMATION</p>
 
-                <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
+                    <div class=" grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4">
+                        <div class=' grid-rows-2 pb-6'>
+                            <div class='grid-rows-1'>
+                                <label>Residential Address</label>
+                            </div>
 
-                    <div class=' grid-rows-2 pb-6'>
-                        <div class='grid-rows-1'>
-                            <label>Program</label>
+                            <div class='grid-rows-2'>
+                                <input type="text" name="raddress" id="raddress"
+                                    class=" w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2">
+                            </div>
                         </div>
 
-                        <div class='grid-rows-2'>
-                            <select name="program" class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'>
-                                <option> --SELECT--</option>
-                                <option name='business'> Business</option>
-                                <option name='cve'> Civil Engineering</option>
-                                <option name='ce'> Computer Engineering</option>
-                                <option name='cs'> Computer Science</option>
-                                <option name='it'> Information Technology</option>
-                                <option name='eee'> Electrical Engineering </option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class=' grid-rows-2 pb-6'>
-                        <div class='grid-rows-1'>
-                            <label>Level</label>
-                        </div>
-
-                        <div class='grid-rows-2'>
-                            <select name="level"
-                                class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'>
-                                <option> --SELECT--</option>
-                                <option name='l100'> 100 </option>
-                                <option name='l200'> 200 </option>
-                                <option name='l300'> 300 </option>
-                                <option name='l400'> 400 </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class=' grid-rows-2 pb-6'>
-                        <div class='grid-rows-1'>
-                            <label>Purpose of application</label>
-                        </div>
-
-                        <div class='grid-rows-2'>
-                            <select name="a" class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1
-                                px-2'>
-                                <option> --SELECT--</option>
-                                <option name='kcc'>Job application </option>
-                                <option name='seaview'>Application to another school</option>
-                                <option name='kcc'>Personal</option>
-                            </select>
+                        <div>
+                            <label for="">Bank Name</label>
+                            <input type="text" name="bname"
+                                class=" w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2">
                         </div>
                     </div>
                 </div>
 
 
-                <div class=' grid-rows-2 pb-12 '>
 
-                    <div class='grid-rows-1 pt-6'>
-                        <p class=' text-center text-red-700 font-semibold'>*****PROVIDE INFORMATION FOR THIS SECTION
-                            OF THE FORM ONLY IF YOU ARE TO PRESENT THIS TO AN ORGANIZATION*****</p>
-                        <p class=' font-bold text-sky-800 py-8'>ORGANIZATION'S INFORMATION</p>
-                    </div>
 
+
+                <div id="residencypermit">
+                    <p class=' font-bold text-sky-800 p-8'>RESIDENCY PERMIT</p>
                     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
-                        <div class='pb-4 grid-cols-1 '>
-                            <label>Organization's Name:</label>
-                            <input name='ogname'
-                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder='Organization Name' />
-                        </div>
 
-                        <div class='pb-4 grid-cols-2 '>
-                            <label>Organization's Telephone</label>
-                            <input name='ogcontact'
-                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder=' +233 123 456 7890' />
-                        </div>
+                        <div class=' grid-rows-2 pb-6'>
+                            <div class='grid-rows-1'>
+                                <label>Passport Number</label>
+                            </div>
 
-                        <div class='pb-4 grid-cols-3 '>
-                            <label>Organization's Email</label>
-                            <input name='ogemail'
-                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder='organizaation@email.com' />
-                        </div>
-
-                        <div class='pb-4 grid-cols-3'>
-                            <label>Organization's Post Address</label>
-                            <input name='ogpostal'
-                                class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder='Post address' />
+                            <div class='grid-rows-2'>
+                                <input type="text" name="pnumber" id="pnumber"
+                                    class=" w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2">
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+                <div id="visa_application">
+                    <p class=' font-bold text-sky-800 p-8'>VISA APPLICATION</p>
+                    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
+
+                        <div class=' grid-rows-2 pb-6'>
+                            <div class='grid-rows-1'>
+                                <label>Embassy or High Commision Address</label>
+                            </div>
+
+                            <div class='grid-rows-2'>
+                                <input type="text" name="eaddress" id="eaddress"
+                                    class=" w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
 
                 <div class=' grid-rows-2 pb-12 '>
 
                     <div class='grid-rows-1'>
-                        <p class=' font-bold text-sky-800 pb-8'>ADDITIONAL INFORMATION</p>
+                        <p class=' font-bold text-sky-800 p-8'>ADDITIONAL INFORMATION</p>
                     </div>
 
                     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 px-4'>
@@ -224,11 +203,11 @@
                         </div>
 
                         <!-- {/* <div class='pb-4 grid-cols-3 '>
-                            <label></label>
-                            <input name='ogemail'
-                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
-                                placeholder='organization@email.com' />
-                        </div> */} -->
+                                <label></label>
+                                <input name='ogemail'
+                                    class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'
+                                    placeholder='organization@email.com' />
+                            </div> */} -->
                     </div>
                 </div>
 
