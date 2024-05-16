@@ -36,7 +36,7 @@
             FILL OUT THE FORM TO APPLY FOR AN INTRODUCTORY LETTER </div>
 
         <div class=" pt-12">
-            <form class='bg-white rounded-xl shadow-md mx-4 md:mx-8 lg:mx-24 p-4 md:p-12 pb-3' method="post" enctype="multipart/form-data"
+            <form class='bg-white rounded-xl drop-shadow-md lg:mx-24 p-12' method="post" enctype="multipart/form-data"
                 action="../../backend/scripts/forms.php?action=introductoryLetter">
                 <p class=' font-bold text-sky-800 p-8'>PERSONAL IDENTIFICATION</p>
 

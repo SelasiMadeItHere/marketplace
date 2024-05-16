@@ -132,7 +132,7 @@
 
                     <div class='text-center'>
                         <p class=" text-2xl font-bold p-2">Deferment Application</p>
-                        <a href="./DefermentRequest.html">
+                        <a href="./DefermentRequest.php">
                             <button class='btn btn-primary shadow-md' variant="contained">Apply Now!</button>
                         </a>
 
@@ -150,7 +150,7 @@
 
                     <div class='text-center'>
                         <p class=" text-2xl font-bold p-2">Certificate Application</p>
-                        <a href="./CertificateRequest.html">
+                        <a href="./CertificateRequest.php">
                             <button class='btn btn-primary shadow-md' variant="contained">Apply Now!</button>
                         </a>
 
@@ -168,7 +168,7 @@
 
                     <div class='text-center'>
                         <p class=" text-2xl font-bold p-2"> Introductory Letter Application</p>
-                        <a href="">
+                        <a href="./transcriptApplication.php">
                             <button class='btn btn-primary'>Apply Now!</button>
                         </a>
 

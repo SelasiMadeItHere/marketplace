@@ -125,7 +125,7 @@ if($action == 'IDCardRenewal'){
 if ($action == 'introductoryLetter') {
     $uploadDirectory = '../uploads/';
     $uploadedFileName = $_FILES['receipt_path']['name'];
-    $uploadedFilePath = $uploadDirectory . $uploadedFileName.(new DateTime())->format('Y-m-d-h-m-s');
+    $uploadedFilePath = $uploadDirectory.(new DateTime())->format('Y-m-d-h-m-s') . $uploadedFileName;
 
     if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
         // File successfully uploaded, proceed with database insertion
@@ -144,6 +144,8 @@ if ($action == 'introductoryLetter') {
             return $randomString;
         }
         $rqst_id = $stuid . '-INTRO-' . generateRandomString(5);
+
+        
 
         // Bind parameters
         $stmt->bind_param('sssissssssss', $rqst_id, $stuid, $name, $phone, $email, $purpose, $raddress, $bname, $pnumber, $eaddress, $uploadedFilePath, $created_at);
@@ -256,6 +258,63 @@ if ($action == 'certificateApplication') {
             <script>
                 alert("Info has successfully been added");
                 location.href="../../Frontend/Client/NewRequest.html";
+            </script>';
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        // Failed to move uploaded file
+        echo "Error: Failed to upload file.";
+    }
+
+    $conn->close();
+}
+
+
+
+
+if ($action == 'transcriptApplication') {
+    // Processing uploaded file
+    $uploadDirectory = '../uploads/'; // Directory to save uploaded files
+    $uploadedFileName = $_FILES['receipt_path']['name'];
+    $uploadedFilePath = $uploadDirectory . $uploadedFileName;
+
+    if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
+        // File uploaded successfully, continue with database insertion
+
+        
+
+        // Extracting form data
+        extract($_POST);
+
+        $created_at = (new DateTime())->format('Y-m-d');
+
+        $query = "INSERT INTO tbltranscript_requests (rqst_id, stuid, name, email, level, prog, phone, purpose, ogname, ogcontact, ogphone, ogemail, ogpostal, created_at, deliv_mode, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        $stmt = $conn->prepare($query);
+
+        // Generating request ID
+        function generateRandomString($length) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            return $randomString;
+        }
+        $rqst_id = $stuid . '-CERT-' . generateRandomString(5);
+
+        // Function to generate random string of specified length
+
+
+        $stmt->bind_param('sssssssssssssssss', $rqst_id, $stuid, $name, $email, $level, $prog, $phone, $purpose, $ogname, $ogcontact, $ogphone, $ogemail, $ogpostal, $created_at, $deliv_mode, $uploadedFilePath, $status);
+
+        if ($stmt->execute()) {
+            echo '
+            <script>
+                alert("Info has successfully been added");
+                location.href="../../Frontend/Client/NewRequest.php";
             </script>';
         } else {
             echo "Error: " . $stmt->error;
