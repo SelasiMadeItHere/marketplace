@@ -291,7 +291,7 @@ if ($action == 'transcriptApplication') {
 
         $created_at = (new DateTime())->format('Y-m-d');
 
-        $query = "INSERT INTO tbltranscript_requests (rqst_id, stuid, name, email, level, prog, phone, purpose, ogname, ogcontact, ogphone, ogemail, ogpostal, created_at, deliv_mode, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        $query = "INSERT INTO tbltranscript_requests (rqst_id, stuid, name, email, level, prog, phone, purpose, ogname, ogcontact, ogphone, ogemail, ogpostal, created_at, deliv_mode, receipt_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
 
         // Generating request ID
@@ -303,12 +303,12 @@ if ($action == 'transcriptApplication') {
             }
             return $randomString;
         }
-        $rqst_id = $stuid . '-CERT-' . generateRandomString(5);
+        $rqst_id = $stuid . '-TRANS-' . generateRandomString(5);
 
         // Function to generate random string of specified length
 
 
-        $stmt->bind_param('sssssssssssssssss', $rqst_id, $stuid, $name, $email, $level, $prog, $phone, $purpose, $ogname, $ogcontact, $ogphone, $ogemail, $ogpostal, $created_at, $deliv_mode, $uploadedFilePath, $status);
+        $stmt->bind_param('ssssssssssssssss', $rqst_id, $stuid, $name, $email, $level, $prog, $phone, $purpose, $ogname, $ogcontact, $ogphone, $ogemail, $ogpostal, $created_at, $deliv_mode, $uploadedFilePath);
 
         if ($stmt->execute()) {
             echo '

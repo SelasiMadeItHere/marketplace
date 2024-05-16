@@ -75,12 +75,12 @@
                                 <select
                                     class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2 ' name="level">
                                     <option> --SELECT--</option>
-                                    <option name='l100'> 100 </option>
-                                    <option name='l200'> 200 </option>
-                                    <option name='l300'> 300 </option>
-                                    <option name='l400'> 400 </option>
-                                    <option name='masters'> Masters </option>
-                                    <option name='phd'> PhD </option>
+                                    <option value='100'> 100 </option>
+                                    <option value='200'> 200 </option>
+                                    <option value='300'> 300 </option>
+                                    <option value='400'> 400 </option>
+                                    <option value='Masters'> Masters </option>
+                                    <option value='PhD'> PhD </option>
                                 </select>
                             </div>
                         </div>
@@ -93,12 +93,12 @@
                             <div class='grid-rows-2'>
                                 <select name='prog' class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'>
                                     <option> --SELECT--</option>
-                                    <option name='business'> Business</option>
-                                    <option name='cve'> Civil Engineering</option>
-                                    <option name='ce'> Computer Engineering</option>
-                                    <option name='cs'> Computer Science</option>
-                                    <option name='it'> Information Technology</option>
-                                    <option name='eee'> Electrical Engineering </option>
+                                    <option value='Business'> Business</option>
+                                    <option value='Civil Engineering'> Civil Engineering</option>
+                                    <option value='Computer Engineering'> Computer Engineering</option>
+                                    <option value='Computer Science'> Computer Science</option>
+                                    <option value='Information Technology'> Information Technology</option>
+                                    <option value='Electrical Engineering'> Electrical Engineering </option>
                                 </select>
                             </div>
                         </div>

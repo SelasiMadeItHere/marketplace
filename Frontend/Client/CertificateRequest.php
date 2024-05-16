@@ -40,7 +40,8 @@
             <!-- <form action="../../backend/scripts/forms.php?action=certificateApplication"
                 class='bg-white rounded-xl shadow-md mx-4 md:mx-8 lg:px-32 p-4 md:p-12'> -->
 
-            <form action="../../backend/scripts/forms.php?action=certificateApplication"
+            <form action="certificateform.php" enctype="multipart/form-data"
+            method="post"
                 class="bg-white rounded-xl drop-shadow-md lg:mx-24 p-12">
                 <p class=' font-bold text-sky-800 p-8 text-md'>PERSONAL IDENTIFICATION</p>
 
