@@ -22,9 +22,9 @@
                             <img src="../src/AIT_CREST.png" alt='crest' class=' h-16 w-16' />
                         </h1>
                     </div>
-    
+
                     <p class=' pt-4 text-center lg:text-3xl font-bold '>AIT MARKETPLACE</p>
-    
+
                     <div class='my-6'>
                         <Bars3Icon class='w-7 font-extrabold flex mx-5 lg:hidden' />
                     </div>
@@ -32,13 +32,13 @@
             </div>
         </div>
 
-        <div class=' lg:mx-24 my-12 text-center text-sky-800 text-3xl font-semibold py-12'>
+        <div class=' lg:mx-24 pt-36 pb-28 text-center text-sky-800 text-3xl font-semibold'>
             FILL OUT THE FORM BELOW TO APPLY FOR DEFERMENT
         </div>
 
         <div>
-            <form name='deferment' class='bg-white rounded-xl drop-shadow-md lg:mx-24 p-12'
-                action="../../backend/scripts/forms.php?action=defermentApplication">
+            <form name='deferment' class='bg-white rounded-xl drop-shadow-md lg:mx-24 p-12' enctype="multipart/form-data"
+                action="../../backend/scripts/forms.php?action=defermentApplication" method="post">
                 <p class=' font-bold text-sky-800 p-8'>PERSONAL IDENTIFICATION</p>
 
                 <div class='grid text-lg'>
@@ -49,7 +49,7 @@
                                 <label>ID Number:</label>
                             </div>
                             <div class='grid-rows-2'>
-                                <input name='stuid' name="stuid"
+                                <input name='stuid' placeholder='ADSXXXXXXXXXXY'
                                     class=' border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' />
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 <label>Phone Number</label>
                             </div>
                             <div class='grid-rows-2'>
-                                <input type='text' name="phone"
+                                <input type='tel' name="phone" placeholder="+233 123 456 7890"
                                     class=' border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' />
                             </div>
                         </div>
@@ -69,8 +69,8 @@
 
                 </div>
 
-                <p class=' font-bold text-sky-800 p-8'>Current Academic Progress</p>
-                <div class='grid text-lg'>
+                <p class=' font-bold text-sky-800 p-8'>CURRENT ACADEMIC PROGRESS</p>
+                <div class='grid text-md'>
 
                     <div class='grid lg:grid-cols-3 px-12'>
                         <div class=' grid-rows-2'>
@@ -100,8 +100,8 @@
                                 <select name='csem' value={csem} class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%]
                                     focus:outline-blue-800 py-1 px-2 '>
                                     <option> --SELECT--</option>
-                                    <option name='Sem1' value={1}> Semester 1</option>
-                                    <option name='Sem2' value={2}> Semester 2 </option>
+                                    <option name='Sem1' value='1'> Semester 1</option>
+                                    <option name='Sem2' value='2'> Semester 2 </option>
                                 </select>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 <label> Email</label>
                             </div>
                             <div class='grid-rows-2'>
-                                <input name='mail' class='
+                                <input name='mail' placeholder="idnumber@ait.edu.gh" class='
                                 border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' />
                             </div>
                         </div>
@@ -134,8 +134,8 @@
                             <select name='defsem' class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%]
                                 focus:outline-blue-800 py-1 px-2 '>
                                 <option> --SELECT--</option>
-                                <option name='Sem1' value={1}> Semester 1</option>
-                                <option name='Sem2' value={2}> Semester 2 </option>
+                                <option name='Sem1' value='1'> Semester 1</option>
+                                <option name='Sem2' value='2'> Semester 2 </option>
                             </select>
                         </div>
                     </div>
@@ -145,8 +145,11 @@
                             <label>of Academic Year</label>
                         </div>
                         <div class='grid-rows-2'>
-                            <input type="number" name="academicyear" defaultValue={2024}
-                                class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 ' />
+                            <!-- <input type="year" name="academicyear" placeholder='2023/2024'
+                                class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 ' /> -->
+
+                                <input type="number" name="academicyear" 
+                                class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 text-center' min='2024' value='2024'/>
                         </div>
                     </div>
 
@@ -160,8 +163,8 @@
                             <select name='retsem' class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%]
                                 focus:outline-blue-800 py-1 px-2 '>
                                 <option> --SELECT--</option>
-                                <option name='Sem1' value={1}> Semester 1</option>
-                                <option name='Sem2' value={2}> Semester 2 </option>
+                                <option name='Sem1' value='1'> Semester 1</option>
+                                <option name='Sem2' value='2'> Semester 2 </option>
                             </select>
                         </div>
                     </div>
@@ -172,8 +175,8 @@
                             <label>of Academic Year</label>
                         </div>
                         <div class='grid-rows-2'>
-                            <input type="number" name="retyear" defaultValue={2024}
-                                class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 ' />
+                            <input type='number' name="retyear" min='2024' value='2024'
+                                class=' border-b-2 pr-12 border-2 border-gray-700 rounded-md min-w-[60%] focus:outline-blue-800 py-1 px-2 text-center' />
                         </div>
                     </div>
                 </div>
@@ -190,7 +193,7 @@
 
 
 
-                        <div class=' grid-rows-2 pb-6'>
+                        <div class=' grid-rows-2'>
                             <div class='grid-rows-1'>
 
 
@@ -216,14 +219,12 @@
                             </div>
                         </div>
 
-                        
+
                     </div>
 
 
                     <div class='grid-rows-3 pl-12'>
-                        <!-- {/* <TextareaAutosize name='reason' value={reason} onChange={(e)=> setReason(e.target.value)}
-                            class=' lg:w-full focus:outline-blue-800 lg:h-9 border-2 border-gray-700 rounded-md'
-                            minRows={9} /> */} -->
+
                     </div>
                 </div>
                 <div class=' grid-rows-2 pb-12 '>
@@ -237,7 +238,8 @@
 
 
                                 <div class='grid-rows-2 px-12'>
-                                    <input type="file" class=" border rounded-md bg-sky-700 text-white p-2" name="receipt_path">
+                                    <input type="file" class=" border rounded-md bg-sky-700 text-white p-2"
+                                        name="receipt_path">
                                 </div>
                             </div>
                         </div>
@@ -245,17 +247,10 @@
 
                     </div>
 
-
-                    <div class='grid-rows-3 pl-12'>
-                        <!-- {/* <TextareaAutosize name='reason' value={reason} onChange={(e)=> setReason(e.target.value)}
-                            class=' lg:w-full focus:outline-blue-800 lg:h-9 border-2 border-gray-700 rounded-md'
-                            minRows={9} /> */} -->
-                    </div>
                 </div>
 
                 <div class=' text-center'>
-                    <Button name='submit'
-                        class=' bg-sky-700 p-2 text-white rounded-md'>SUBMIT</Button>
+                    <button name='submit' class=' bg-sky-700 p-2 text-white rounded-md'>SUBMIT</button>
                 </div>
             </form>
         </div>

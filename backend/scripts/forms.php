@@ -1,8 +1,10 @@
 <?php 
+error_reporting(E_ALL); ini_set('display_errors', 1);
+
 
 require_once './config.php';
 
-$action = isset($_GET['action']);
+$action = $_GET['action'];
 
 if($action == 'staffLogin'){
    
@@ -73,7 +75,7 @@ if($action == 'staffRegister'){
     if ($stmt->execute()) {
         echo '
             <script>
-                alert("User created successfully.")
+                alert("User created successfully here.")
                 location.href="../../Frontend/Admin/Register.php";
             </script>
         ';
@@ -93,6 +95,9 @@ if($action == 'IDCardRenewal'){
     $customText = 'Card-';
     $rqst_id = $customText . substr(uniqid(), 0, 6);
 
+
+    $DateApplied = (new DateTime())->format('Y-m-d');
+
     //Mailing
 
 
@@ -103,12 +108,12 @@ if($action == 'IDCardRenewal'){
     $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
     $stmt = $conn->prepare($query);
 
-    $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $image, (new DateTime())->format('Y-m-d'));
+    $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $image, $DateApplied);
 
     if ($stmt->execute()){
         echo '
         <script>
-            alert("Info has successfully been added");
+            alert("Info has heheheh been added");
             location.href="../../Frontend/Client/NewRequest.html";
         </script>';
 
@@ -148,28 +153,98 @@ if($action == 'introductoryLetter'){
 }
 
 
-if($action == 'defermentApplication'){
+// if($action == 'defermentApplication'){
 
-    //Generating rqst ID
-    $rqst_id = $stuid . '-DEF-'.substr(uniqid(), 0, 3);
-    extract($_POST);
+//     // Generating rqst ID
+    
+//     extract($_POST);
 
-    $query = "INSERT INTO tbl_deferments (rqst_id, stuid, phone, clevel, csem, mail, defsem, academicyear, retsem, retyear, reason, created_at, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, 'Pending')";
-    $stmt = $conn->prepare($query);
+//        // Processing uploaded file
+//        $uploadDirectory = '../../uploads'; // Directory to save uploaded files
+//        $uploadedFileName = $_FILES['reciept_path']['name'];
+//        $uploadedFilePath = $uploadDirectory . $uploadedFileName;
 
-    $stmt->bind_param('ssssisisisss', $rqst_id, $stuid, $phone, $clevel, $csem, $mail, $defsem, $academicyear, $retsem, $retyear, $reason, (new DateTime())->format('Y-m-d')); $receipt_path;
+//        if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
 
-    if ($stmt->execute()){
-        echo '
-        <script>
-            alert("Info has successfully been added");
-            location.href="../../Frontend/Client/NewRequest.html";
-        </script>';
 
+//     $created_at = (new DateTime())->format('Y-m-d');
+
+
+
+//     $query = "INSERT INTO tbl_deferments (rqst_id, stuid, phone, clevel, csem, mail, defsem, academicyear, retsem, retyear, reason, created_at, reciept_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, 'Pending')";
+//     $stmt = $conn->prepare($query);
+
+//     $rqst_id = $stuid . '-DEF-'.substr(uniqid(), 0, 3);
+
+//     $stmt->bind_param('ssssisiisssss', $rqst_id, $stuid, $phone, $clevel, $csem, $mail, $defsem, $academicyear, $retsem, $retyear, $reason, $created_at, $reciept_path);
+
+//     if ($stmt->execute()){
+//         echo '
+//         <script>
+//             alert("Info has successfully been added");
+
+//         </script>';
+
+//     } else {
+//         echo "Error: " . $stmt->error;
+//     }
+
+//     $stmt->close();
+// }
+//     $conn->close();
+
+// }
+
+if ($action == 'defermentApplication') {
+    // Processing uploaded file
+    $uploadDirectory = '../uploads/'; // Directory to save uploaded files
+    $uploadedFileName = $_FILES['receipt_path']['name'];
+    $uploadedFilePath = $uploadDirectory . $uploadedFileName;
+
+    if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
+        // File uploaded successfully, continue with database insertion
+
+        
+
+        // Extracting form data
+        extract($_POST);
+
+        $created_at = (new DateTime())->format('Y-m-d');
+
+        $query = "INSERT INTO tbl_deferments (rqst_id, stuid, phone, clevel, csem, mail, defsem, academicyear, retsem, retyear, reason, created_at, receipt_path, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        // Generating request ID
+        function generateRandomString($length) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+            }
+            return $randomString;
+        }
+        $rqst_id = $stuid . '-DEF-' . generateRandomString(5);
+
+        // Function to generate random string of specified length
+
+
+        $stmt->bind_param('ssssisisisssss', $rqst_id, $stuid, $phone, $clevel, $csem, $mail, $defsem, $academicyear, $retsem, $retyear, $reason, $created_at, $uploadedFilePath, $status);
+
+        if ($stmt->execute()) {
+            echo '
+            <script>
+                alert("Info has successfully been added");
+                location.href="../../Frontend/Client/NewRequest.html";
+            </script>';
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
     } else {
-        echo "Error: " . $stmt->error;
+        // Failed to move uploaded file
+        echo "Error: Failed to upload file.";
     }
 
-
+    $conn->close();
 }
-

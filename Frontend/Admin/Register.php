@@ -39,7 +39,7 @@
 
                         <label class=' text-left font-semibold'>Assign Role</label><br>
                         <select id="outlined-select-currency-native" placeholder='Role' label="Select" name="role"
-                            defaultValue="Select" class='  p-2 rounded-lg border-2 border-black w-[75%]'>
+                            defaultValue="Select" class='  p-2 rounded-lg border-2 border-black w-[75%]' required>
                             <option defaultValue="Select" placeholder="Select the Role Assigned to the Officer"></option>
                             <option value="Registrar">Registrar</option>
                             <option value="IDU">IDU</option>
