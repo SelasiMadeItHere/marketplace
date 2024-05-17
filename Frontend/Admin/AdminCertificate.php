@@ -107,7 +107,7 @@ $conn->close();
                         </li>
                     </ul>
 
-                    {/* LOGOS FOR FAQs OR POSING QUESTIONS */}
+                    <!-- {/* LOGOS FOR FAQs OR POSING QUESTIONS */} -->
                     <div class=''>
                         <ul class=' inline-flex'>
                             <li>
@@ -147,10 +147,8 @@ $conn->close();
                             <th class="border-1 text-center">REQUEST ID</th>
                             <th class="border-1 text-center">STUDENT ID</th>
                             <th class="border-1 text-center">NAME</th>
-                            <!-- <th>LEVEL</th> -->
                             <th class="border-1 text-center">RECEIPT</th>
                             <th class="border-1 text-center">PROGRAM</th>
-                            <!-- <th>EMAIL</th> -->
                             <th class="border-1 text-center">PHONE</th>
                             <th class="border-1 text-center">DELIVERY MODE</th>
                             <th class="border-1 text-center">ACTION</th>
@@ -179,7 +177,7 @@ $conn->close();
                                 <!-- <td><?php echo $certificate['email'] ?></td> -->
                                 <td class="border-1"><?php echo $certificate['phone'] ?></td>
                                 <td class="border-1"><?php echo $certificate['delivery'] ?></td>
-                                <td class="border-1" x>
+                                <td class="border-1" >
                                     <button data-id="<?php echo $certificate['tblid'] ?>"
                                         class="btn btn-success approve">+</button>
                                     <button data-id="<?php echo $certificate['tblid'] ?>"

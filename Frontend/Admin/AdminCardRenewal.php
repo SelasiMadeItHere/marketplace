@@ -107,20 +107,20 @@ $conn->close();
 
 
                 <Card class='my-12 drop-shadow-sm'>
-                    <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Card Renewal
+                    <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6 rounded-lg'>Card Renewal
                         Requests</h1>
-                    <table class=' overflow-y-auto drop-shadow-md w-full ' id="example"
-                        class="table table-striped text-xs">
+                    <table class=' overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs' id="example"
+                        >
 
 
                         <thead class=" text-center">
                             <tr>
                                 <th class=" text-center border p-2"></th>
-                                <th class=" text-semibold border p-2 text-center">ID NO.</th>
-                                <th class=" text-semibold border p-2 text-center">REQUEST ID</th>
-                                <th class=" text-semibold border p-2 text-center">EMAIL</th>
-                                <th class=" text-semibold border p-2 text-center">CAMPUS</th>
-                                <th class=" text-semibold border p-2 text-center">SERVICE</th>
+                                <th class=" font-semibold border p-2 text-center">ID NO.</th>
+                                <th class=" font-semibold border p-2 text-center">REQUEST ID</th>
+                                <th class=" font-semibold border p-2 text-center">EMAIL</th>
+                                <th class=" font-semibold border p-2 text-center">CAMPUS</th>
+                                <th class=" font-semibold border p-2 text-center">SERVICE</th>
                                 <th class=" border p-2 text-center" class=' border text-center'>ACTION</th>
                             </tr>
 
@@ -131,13 +131,13 @@ $conn->close();
                             <?php $count = 1;
                             while ($card = $cards->fetch_assoc()): ?>
                                 <tr>
-                                    <td><?php echo $count ?></td>
-                                    <td><?php echo $card['stuid'] ?></td>
-                                    <td><?php echo $card['rqst_id'] ?></td>
-                                    <td><?php echo $card['email'] ?></td>
-                                    <td><?php echo $card['campus'] ?></td>
-                                    <td><?php echo $card['service'] ?></td>
-                                    <td>
+                                    <td class=" font-semibold"><?php echo $count ?></td>
+                                    <td class="border"><?php echo $card['stuid'] ?></td>
+                                    <td class="border"><?php echo $card['rqst_id'] ?></td>
+                                    <td class="border"><?php echo $card['email'] ?></td>
+                                    <td class="border"><?php echo $card['campus'] ?></td>
+                                    <td class="border"><?php echo $card['service'] ?></td>
+                                    <td class="border">
                                         <a href="
                                     <?php
                                     $path = $card['image'];
@@ -146,8 +146,8 @@ $conn->close();
                                     echo $new_path;
                                     ?>"><?php echo "View"; ?></a>
 
-                                        <button data-id="<?php echo $card['index'] ?>"
-                                            class="btn btn-success approve">+</button>
+                                        <button data-id="<?php echo $card['rqst_id'] ?>"
+                                            class="btn btn-success dfaCardapprove">+</button>
                                         <button data-id="<?php echo $card['rqst_id'] ?>"
                                             class="btn btn-danger decline">-</button>
                                     </td>
@@ -173,38 +173,15 @@ $conn->close();
     <script>
         $('#example').DataTable();
 
-        // $("#btn").click(function (e) {
-        //     e.preventDefault();
-
-        //     alert("clicked")
-        // });
 
 
-        // $(".approve").click(function (e) {
-        //     e.preventDefault();
-        //     let id = $(this).data('id')
-
-        //     $.ajax({
-        //         type: "post",
-        //         url: "../../backend/scripts/ajax.php?action=dfaCard-approve&id=" + id,
-        //         success: function (response) {
-        //             // alert(response)
-        //             if (response == 1) {
-        //                 location.reload();
-        //             }
-        //         }
-        //     });
-
-        // });
-
-
-        $(".approve").click(function (e) {
+        $(".dfaCardapprove").click(function (e) {
             e.preventDefault();
             let id = $(this).data('id');
 
             $.ajax({
                 type: "post",
-                url: "../../backend/scripts/ajax.php?action=dfaCard-approve&id=" + id,
+                url: "../../backend/scripts/ajax.php?action=dfaCardApprove&id=" + id,
                 success: function (response) {
                     if (response == 1) {
                         location.reload();

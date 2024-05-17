@@ -1,5 +1,27 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_introductory_requests WHERE status = 'Pending'";
+$introductorys = $conn->query($sql);
+
+// $data = array();
+// if ($result->num_rows > 0) {
+//     while ($row = $result->fetch_assoc()) {
+//         $data[] = $row;
+//     }
+// }
+
+$conn->close();
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -123,72 +145,113 @@
 
                     <div class=' col-span-4'></div>
                     <div class=' col-span-3 m-2'>
-                        <!-- {showAlert && (
-                            <Alert variant="filled" severity={alertSeverity} onClose={() => setShowAlert(false)}>
-                                {alertMessage}
-                            </Alert>
-                        )} -->
+
                     </div>
                 </div>
 
 
 
-                <Card class='my-12 drop-shadow-sm'>
-
-                    <table class=' overflow-y-auto drop-shadow-md w-full'>
-                        <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Introductory
+                <div class='my-12 drop-shadow-sm'>
+                    <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Introductory
                             Letter Requests</h1>
-                        <th class=' text-center'>
+                    <table id="example"  class=' overflow-y-auto drop-shadow-md w-full table table-striped text-xs'>
+                       
+                        <thead class=' text-center'>
                             <tr class=" w-[100%]">
-                                <th class=" text-bold border p-2" class=' border'></th>
+                                <th class=" text-bold border p-2" class=' border'>SN</th>
                                 <th class=" text-bold border p-2" class=' border'>ID NO.</th>
-                                <th class=" text-bold border p-2" class=' border'>CAMPUS</th>
-                                <th class=" text-bold border p-2" class=' border'>SERVICE</th>
-                                <th class=" text-bold border p-2" class=' border'>TRACKING ID</th>
+                                <th class=" text-bold border p-2" class=' border'>REQUEST ID</th>
+                                <th class=" text-bold border p-2" class=' border'>NAME</th>
+                                <th class=" text-bold border p-2" class=' border'>PASSPORT NUMBER</th>
+                                <th class=" text-bold border p-2" class=' border text-center'>E-MAIL</th>
+                                <th class=" text-bold border p-2" class=' border text-center'>PHONE</th>
+                                <th class=" text-bold border p-2" class=' border text-center'>PURPOSE</th>
                                 <th class=" text-bold border p-2" class=' border text-center'>ACTION</th>
-                            </tr>
-                        </th>
 
-                        <TableBody>
-                            <!-- {data.map((card, index) => {
-                            return ( -->
-                            <tr key={card.stuid} class=' border p-12'>
-                                <td> {index + 1}</th>
-                                <td class=' text-left p-3 border'>{card.stuid}</td>
-                                <td class=' text-left p-3 border'>{card.campus}</td>
-                                <td class=' text-left p-3 border'>{card.service}</td>
-                                <td class=' text-left p-3 border'>{card.rqst_id}</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            
+                        <?php $count = 1; while ($introductory = $introductorys->fetch_assoc()) :?>
+                            <tr class=' border p-12'>
+                                <td> <?php echo $count ?></th>
+                                <td class=' text-left p-3 border'><?php echo $introductory['stuid'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['rqst_id'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['email'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['phone'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['purpose'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td>
+                                <!-- <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td> -->
+                                <!-- <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td> -->
 
                                 <td class=' text-center p-3 border-y'>
-                                    <Stack direction='row' class=''>
-                                        <!-- <IDCardView card={card} />
-
-                                        <Iconbutton onClick={()=> finished(card.rqst_id)}>
-                                            <ThumbUpIcon variant='contained' color='success' />
-                                        </Iconbutton>
-
-                                        <Iconbutton variant='contained' color='error' 
-                                            <ThumbDownIcon />
-                                        </Iconbutton> -->
-                                    </Stack>
+                                    
                                 </td>
                             </tr>
-                            <!-- )
-                            })} -->
-
-
-                        </TableBody>
+                            <?php $count++; endwhile ?>
+                        </tbody>
                     </table>
-                    <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
-                        count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage} /> -->
-                </Card>
+                            </div>
             </div>
 
         </div>
 
 
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        $('#example').DataTable();
+
+        // $("#btn").click(function (e) {
+        //     e.preventDefault();
+
+        //     alert("cliced")
+        // });
+
+
+        $(".approve").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaIntroApprove&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        location.reload();
+                    }
+                }
+            });
+
+        });
+
+        $(".decline").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaTransReject&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        location.reload();
+                    }
+                }
+            });
+
+        });
+    </script>
 </body>
+
 
 </html>
