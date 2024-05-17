@@ -1,3 +1,16 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_certificate WHERE status = 'Pending'";
+$certificates = $conn->query($sql);
+
+
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,14 +57,14 @@
                             </li>
 
                             <li class=' py-5 border-gray-500 border-b-2 ' to="/cardrenewal">
-                                <a href="./AdminCardRenewal.html">
+                                <a href="./AdminCardRenewal.php">
                                     <CreditCardIcon fontSize='large' class=' pr-3' />
                                     ALL REQUESTS
                                 </a>
                             </li>
 
                             <li class=' py-5 border-gray-500 border-b-2'>
-                                <a href="./AdminCardApproved.html">
+                                <a href="./AdminCardApproved.php">
                                     <CardMembershipRounded fontSize='large' class=' pr-2' />
                                     PROCESSED REQUESTS
                                 </a>
@@ -59,7 +72,7 @@
 
 
                             <li class=' py-5 border-gray-500 border-b-2'>
-                                <a href="./AdminCardRejected.html">
+                                <a href="./AdminCardRejected.php">
                                     <MilitaryTechIcon fontSize='large' class=' pr-3' />
                                     REJECTED REQUESTS
                                 </a>

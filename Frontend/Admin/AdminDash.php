@@ -1,3 +1,15 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_certificate WHERE status = 'Pending'";
+$certificates = $conn->query($sql);
+
+
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,21 +48,21 @@
 
             <ul class=' text-white px-4  cursor-pointer '>
                 <li class=' py-4 border-gray-500 border-b-2'>
-                    <a href="./AdminDash.html">
+                    <a href="./AdminDash.php">
                         <DashboardIcon fontSize='large' class=' ' />
                         DASHBOARD
                     </a>
                 </li>
 
                 <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
-                    <a href="./AdminCardRenewal.html">
+                    <a href="./AdminCardRenewal.php">
                         <CreditCardIcon fontSize='large' class=' ' />
                         ID CARD RENEWALS
                     </a>
                 </li>
 
                 <li class=' py-4 border-gray-500 border-b-2'>
-                    <a href="./AdminTranscript.html">
+                    <a href="./AdminTranscript.php">
                         <CardMembershipRounded fontSize='large' class='' />
                         TRANSCRIPT APPLICATIONS
                     </a>
@@ -58,21 +70,21 @@
 
 
                 <li class=' py-4 border-gray-500 border-b-2'>
-                    <a href="AdminCertificate.html">
+                    <a href="AdminCertificate.php">
                         <MilitaryTechIcon fontSize='large' class=' ' />
                         CERTIFICATE APPLICATION
                     </a>
                 </li>
 
                 <li class=' py-4 border-gray-500 border-b-2'>
-                    <a href="./admindeferment.html">
+                    <a href="./admindeferment.php">
                         <ExitToAppIcon fontSize='large' class=' ' />
                         DEFERMENT APPLICATION
                     </a>
                 </li>
 
                 <li class=' py-4 border-gray-500 border-b-2'>
-                    <a href="AdminIntroductory.html">
+                    <a href="AdminIntroductory.php">
                         <ExitToAppIcon fontSize='large' class=' ' />
                         INTRODUCTORY LETTER
                     </a>
@@ -110,7 +122,7 @@
                 <div class=' text-center'>
                     <p class='grid-cols-2 text-center text-xl font-bold'>Certificate Portal</p>
                     <p class=' text-2xl'>100</p>
-                    <a href="../Admin/AdminCertificate.html">
+                    <a href="../Admin/AdminCertificate.php">
                         <button color='primary' class=' m-4 btn btn-primary'>VIEW</button>
                     </a>
                 </div>
@@ -125,7 +137,7 @@
                 <div class=' block text-center'>
                     <p class='grid-cols-2 text-center text-xl font-bold'>Deferment Portal</p>
                     <p class=' text-2xl'>100</p>
-                    <a href="../Admin/AdminDeferment.html">
+                    <a href="../Admin/AdminDeferment.php">
                         <button variant='contained' color='primary' class=' m-6 btn btn-primary'>VIEW</button>
                     </a>
 
@@ -139,7 +151,7 @@
                 <div class=' block text-center'>
                     <p class='grid-cols-2 text-center text-xl font-bold'>Transcript Portal</p>
                     <p class=' text-2xl'>100</p>
-                    <a href="../Admin/AdminTranscript.html">
+                    <a href="../Admin/AdminTranscript.php">
                         <button variant='contained' color='primary' class=' m-6 btn btn-primary'>VIEW</button>
                     </a>
                 </div>
@@ -153,7 +165,7 @@
                 <div class=' block text-center'>
                     <p class='grid-cols-2 text-center text-xl font-bold'>Introductory Letter</p>
                     <p class=' text-2xl'>100</p>
-                    <a href="../Admin/AdminIntroductory.html">
+                    <a href="../Admin/AdminIntroductory.php">
                         <button variant='contained' color='primary' class=' m-6 btn btn-primary'>VIEW</button>
                     </a>
                 </div>
@@ -170,4 +182,4 @@
     </div>
 </body>
 
-</html>
+</php>

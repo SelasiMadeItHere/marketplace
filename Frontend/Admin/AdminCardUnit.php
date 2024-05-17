@@ -1,3 +1,15 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_certificate WHERE status = 'Pending'";
+$certificates = $conn->query($sql);
+
+
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +18,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-            <title>IDU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
+    <title>IDU</title>
 </head>
 
 <body>
@@ -40,21 +52,21 @@
 
                         <ul class=' text-white px-4 cursor-pointer '>
                             <li class=' py-5 border-gray-500 border-b-2'>
-                                <a href="./AdminCardRenewal.html">
+                                <a href="./AdminCardRenewal.php">
                                     <DashboardIcon fontSize='large' class=' pr-3' />
                                     VIEW ALL REQUESTS
                                 </a>
                             </li>
 
                             <li class=' py-5 border-gray-500 border-b-2 ' to="/cardrenewal">
-                                <a href ="AdminCardApproved.html">
+                                <a href="AdminCardApproved.php">
                                     <CreditCardIcon fontSize='large' class=' pr-3' />
                                     APPROVED REQUESTS
                                 </a>
                             </li>
 
                             <li class=' py-5 border-gray-500'>
-                                <a href="./AdminCardRejected.html">
+                                <a href="./AdminCardRejected.php">
                                     <CardMembershipRounded fontSize='large' class=' pr-2' />
                                     REJECTED REQUESTS
                                 </a>

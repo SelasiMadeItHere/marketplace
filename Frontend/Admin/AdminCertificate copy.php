@@ -1,3 +1,21 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_deferments";
+$result = $conn->query($sql);
+
+$data = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +24,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-            <title>Certificate Requests</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
+    <title>Certificate Requests</title>
 
 </head>
 
@@ -37,21 +55,21 @@
 
                     <ul class=' text-white px-4  cursor-pointer '>
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDash.html">
+                            <a href="./AdminDash.php">
                                 <DashboardIcon fontSize='large' class=' ' />
                                 DASHBOARD
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
-                            <a href="./AdminCardRenewal.html">
+                            <a href="./AdminCardRenewal.php">
                                 <CreditCardIcon fontSize='large' class=' ' />
                                 ID CARD RENEWALS
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminTranscript.html">
+                            <a href="./AdminTranscript.php">
                                 <CardMembershipRounded fontSize='large' class='' />
                                 TRANSCRIPT APPLICATIONS
                             </a>
@@ -59,21 +77,21 @@
 
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminCertificate.html">
+                            <a href="./AdminCertificate.php">
                                 <MilitaryTechIcon fontSize='large' class=' ' />
                                 CERTIFICATE APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDeferment.html">
+                            <a href="./AdminDeferment.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 DEFERMENT APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminIntroductory.html">
+                            <a href="./AdminIntroductory.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 INTRODUCTORY LETTER
                             </a>
@@ -119,53 +137,41 @@
             <div class='my-6'>
                 <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6 '>Certificate Requests</h1>
                 <table>
-                    <th class=' text-center w-full'>
+                    <thead class='text-center'>
                         <tr>
-                            <th class=' text-center border-2 mx-12'>
-                                </td>
-                            <th class=' text-center border-2'>REQUEST ID
-                                </td>
-                            <th class=' text-center border-2'>STUDENT ID
-                                </td>
-                            <th class=' text-center border-2'>LEVEL</td>
-                            <th class=' text-center border-2'>CUR. SEMESTER
-                                </td>
-                            <th class=' text-center border-2'>REASON</td>
-                            <th class=' text-center border-2'>STATUS</td>
-
-                            <th class=' text-center border-2'>ACTION</td>
+                            <th class='text-center border-2 mx-12'></th>
+                            <th class='text-center border-2'>REQUEST ID</th>
+                            <th class='text-center border-2'>STUDENT ID</th>
+                            <th class='text-center border-2'>LEVEL</th>
+                            <th class='text-center border-2'>CURRENT SEMESTER</th>
+                            <th class='text-center border-2 flex-wrap'>DEF. SEMESTER</th>
+                            <th class='text-center border-2'>REASON</th>
+                            <th class='text-center border-2'>STATUS</th>
+                            <th class='border grid grid-cols-2'>ACTION</th>
                         </tr>
-                    </th>
-
-                    <TableBody>
-                        <!-- {data.map((card, index) => {
-                        return ( -->
-                        <tr key={card.ID} class=' border p-12'>
-                            <th scope="row"> {index + 1}</th>
-                            <td class=' text-left p-3 border-2'>{cert.stuid}</td>
-                            <td class=' text-left p-3 border-2'>{cert.campus}</td>
-                            <td class=' text-left p-3 border-2'>{cert.service}</td>
-                            <td class=' text-left p-3 border-2'>{cert.rqst_id}</td>
-                            <td class=' text-left p-3 border-2'>{cert.rqst_id}</td>
-                            <td class=' text-left p-3 border-2'>{cert.rqst_id}</td>
-
-                            <td class=' text-center p-3 border-y'>
-                                <!-- <Stack direction='row' class=''>
-                                    <IDCardView card={card} />
-                                    <Iconbutton onClick={()=> finished(card.rqst_id)}>
-                                        <ThumbUpIcon variant='contained' color='success' />
-                                    </Iconbutton>
-                                    <Iconbutton variant='contained' color='error'>
-                                        <ThumbDownIcon />
-                                    </Iconbutton>
-                                </Stack> -->
-                            </td>
-                        </tr>
-                        <!-- )
-                        })} -->
-
-
-                    </TableBody>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($data as $index => $fdef) {
+                            echo "<tr class='border p-12'>";
+                            echo "<th scope='row'>" . ($index + 1) . "</th>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['rqst_id']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['stuid']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['clevel']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['csem']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['defsem']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['reason']}</td>";
+                            echo "<td class='text-center p-3 border-2'>{$fdef['status']}</td>";
+                            echo "<td class='text-center p-3 border-y'>";
+                            echo "<div style='display: flex; justify-content: center;'>";
+                            echo "<button onclick='handleRequest(\"approve\", \"{$fdef['rqst_id']}\")'>Approve</button>";
+                            echo "<button onclick='handleRequest(\"reject\", \"{$fdef['rqst_id']}\")'>Reject</button>";
+                            echo "</div>";
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
                 <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
                     count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}

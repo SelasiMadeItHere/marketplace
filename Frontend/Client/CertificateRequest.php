@@ -40,7 +40,7 @@
             <!-- <form action="../../backend/scripts/forms.php?action=certificateApplication"
                 class='bg-white rounded-xl shadow-md mx-4 md:mx-8 lg:px-32 p-4 md:p-12'> -->
 
-            <form action="certificateform.php" enctype="multipart/form-data"
+            <form action="../../backend/scripts/forms.php?action=certificateApplication" enctype="multipart/form-data"
             method="post"
                 class="bg-white rounded-xl drop-shadow-md lg:mx-24 p-12">
                 <p class=' font-bold text-sky-800 p-8 text-md'>PERSONAL IDENTIFICATION</p>
@@ -108,12 +108,12 @@
                         <div class='grid-rows-2'>
                             <select class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'>
                                 <option> --SELECT--</option>
-                                <option name='business'> Business</option>
-                                <option name='cve'> Civil Engineering</option>
-                                <option name='ce'> Computer Engineering</option>
-                                <option name='cs'> Computer Science</option>
-                                <option name='it'> Information Technology</option>
-                                <option name='eee'> Electrical Engineering </option>
+                                <option value='Business'> Business</option>
+                                <option value='Civil Engineering'> Civil Engineering</option>
+                                <option value='Computer Engineering'> Computer Engineering</option>
+                                <option value='Computer Science'> Computer Science</option>
+                                <option value='Information Technology'> Information Technology</option>
+                                <option value='Electronic and Electrical Engineering'>Electronic and Electrical Engineering </option>
                             </select>
                         </div>
                     </div>
@@ -128,10 +128,12 @@
                             <select class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2
                                 '>
                                 <option> --SELECT--</option>
-                                <option name='l100'> 100 </option>
-                                <option name='l200'> 200 </option>
-                                <option name='l300'> 300 </option>
-                                <option name='l400'> 400 </option>
+                                <option value='100'> 100 </option>
+                                <option value='200'> 200 </option>
+                                <option value='300'> 300 </option>
+                                <option value='400'> 400 </option>
+                                <option value='Masters'> Masters </option>
+                                <option value='PhD'> PhD </option>
                             </select>
                         </div>
                     </div>

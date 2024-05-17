@@ -168,10 +168,9 @@
 
                     <div class='text-center'>
                         <p class=" text-2xl font-bold p-2"> Introductory Letter Application</p>
-                        <a href="./transcriptApplication.php">
+                        <a href="./introductoryLetter.php">
                             <button class='btn btn-primary'>Apply Now!</button>
                         </a>
-
                     </div>
                 </div>
             </div>
@@ -186,7 +185,10 @@
 
                     <div class='text-center'>
                         <p class=" text-2xl font-bold p-2"> Transcript Application</p>
-                        <button class='btn btn-primary'>Apply Now!</button>
+                        <a href="./transcriptApplication.php">
+                            <button class='btn btn-primary'>Apply Now!</button>
+                        </a>
+                        
                     </div>
                 </div>
             </div>

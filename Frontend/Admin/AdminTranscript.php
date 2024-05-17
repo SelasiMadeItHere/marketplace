@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,11 +9,11 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-    <title>Card Renewal</title>
+    <title>Transcript Requests</title>
 </head>
 
 <body>
-    <div class=' bg-white h-full relative'>
+    <div class=' grid grid-cols-4 h-screen pb-12 min-h-screen'>
         <div>
             <!-- <Navbar /> -->
             <div class='w-full h-[80px] bg-white drop-shadow-xl z-50 fixed top-0'>
@@ -32,27 +33,26 @@
             </div>
 
 
-
             <nav class=' z-10 mt-24 h-screen left-0 w-[20%] fixed '>
                 <div class='h-screen bg-gray-900 drop-shadow-md rounded'>
 
                     <ul class=' text-white px-4  cursor-pointer '>
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDash.html">
+                            <a href="./AdminDash.php">
                                 <DashboardIcon fontSize='large' class=' ' />
                                 DASHBOARD
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
-                            <a href="./AdminCardRenewal.html">
+                            <a href="./AdminCardRenewal.php">
                                 <CreditCardIcon fontSize='large' class=' ' />
                                 ID CARD RENEWALS
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminTranscript.html">
+                            <a href="./AdminTranscript.php">
                                 <CardMembershipRounded fontSize='large' class='' />
                                 TRANSCRIPT APPLICATIONS
                             </a>
@@ -60,28 +60,28 @@
 
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminCertificate.html">
+                            <a href="./AdminCertificate.php">
                                 <MilitaryTechIcon fontSize='large' class=' ' />
                                 CERTIFICATE APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDeferment.html">
+                            <a href="./AdminDeferment.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 DEFERMENT APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="AdminIntroductory.html">
+                            <a href="./AdminIntroductory.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 INTRODUCTORY LETTER
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="#">
+                            <a href="/admindeferment">
                                 <Settings fontSize='large' class=' pr-2' />
                                 SETTINGS
                             </a>
@@ -116,78 +116,75 @@
             </nav>
         </div>
 
-
-        <div class='grid grid-cols-9'>
-            <div class='mt-24 grid col-span-8 col-start-3 w-[95%]'>
-                <div class=' col-span-full grid'>
-
-                    <div class=' col-span-4'></div>
-                    <div class=' col-span-3 m-2'>
-                        <!-- {showAlert && (
-                            <Alert variant="filled" severity={alertSeverity} onClose={() => setShowAlert(false)}>
-                                {alertMessage}
-                            </Alert>
-                        )} -->
-                    </div>
-                </div>
-
-
-
-                <Card class='my-12 drop-shadow-sm'>
-
-                    <table class=' overflow-y-auto drop-shadow-md w-full'>
-                        <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Introductory
-                            Letter Requests</h1>
-                        <th class=' text-center'>
-                            <tr class=" w-[100%]">
-                                <th class=" text-bold border p-2" class=' border'></th>
-                                <th class=" text-bold border p-2" class=' border'>ID NO.</th>
-                                <th class=" text-bold border p-2" class=' border'>CAMPUS</th>
-                                <th class=" text-bold border p-2" class=' border'>SERVICE</th>
-                                <th class=" text-bold border p-2" class=' border'>TRACKING ID</th>
-                                <th class=" text-bold border p-2" class=' border text-center'>ACTION</th>
+        <div class='mt-24 grid col-span-8 col-start-3 w-[95%]'>
+            <Card class='my-12 drop-shadow-2xl'>
+                <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
+                <TableContainer>
+                    <table>
+                        <th class=" w-full ">
+                            <tr class=" text-center">
+                                <th class=' border-2 text-bold p-2'></th>
+                                <th class=' border-2 text-bold p-2'>ID NO.
+                                </th>
+                                <th class=' border-2 text-bold p-2'>REQUEST
+                                    ID</td>
+                                <th class=' border-2 text-bold p-2'>CONTACT
+                                </th>
+                                <th class=' border-2 text-bold p-2'>PROGRAM
+                                </th>
+                                <th class=' border-2 text-bold p-2'>LEVEL
+                                </th>
+                                <th class=' border-2 text-bold p-2'>
+                                    DELIVERY</th>
+                                <th class=' border-2 text-bold p-2'>STATUS
+                                </th>
+                                <th class=' border-2 text-bold p-2'>ACTION
+                                </th>
                             </tr>
                         </th>
 
-                        <TableBody>
-                            <!-- {data.map((card, index) => {
+                        <TableBody class='text-sm'>
+                            <!-- {data.map((trans, index) => {
                             return ( -->
-                            <tr key={card.stuid} class=' border p-12'>
-                                <td> {index + 1}</th>
-                                <td class=' text-left p-3 border'>{card.stuid}</td>
-                                <td class=' text-left p-3 border'>{card.campus}</td>
-                                <td class=' text-left p-3 border'>{card.service}</td>
-                                <td class=' text-left p-3 border'>{card.rqst_id}</td>
-
+                            <tr key={trans.rqst_id} class=' border p-12'>
+                                <th scope="row"> {index + 1}</th>
+                                <td class=' text-center p-3 border-2'>{trans.stuid}</td>
+                                <td class=' text-center p-3 border-2'>{trans.rqst_id}</td>
+                                <td class=' text-center p-3 border-2'>{trans.phone}</td>
+                                <td class=' text-center p-3 border-2'>{trans.prog}</td>
+                                <td class=' text-center p-3 border-2'>{trans.level}</td>
+                                <td class=' text-center p-3 border-2'>{trans.deliv_mode}</td>
+                                <td class=' text-center p-3 border-2'>{trans.status}</td>
                                 <td class=' text-center p-3 border-y'>
-                                    <Stack direction='row' class=''>
-                                        <!-- <IDCardView card={card} />
-
-                                        <Iconbutton onClick={()=> finished(card.rqst_id)}>
-                                            <ThumbUpIcon variant='contained' color='success' />
+                                    <!-- <Stack direction='row' class=''>
+                                        <TranscriptModal trans={trans} />
+                                        <Iconbutton onClick={()=> fintoregtrans(trans.rqst_id)}>
+                                            <ThumbUpIcon variant='contained' color='primary' />
                                         </Iconbutton>
-
-                                        <Iconbutton variant='contained' color='error' 
-                                            <ThumbDownIcon />
-                                        </Iconbutton> -->
-                                    </Stack>
+                                        <Iconbutton onClick={()=> finrejtoregtrans(trans.rqst_id)}>
+                                            <ThumbDown color='error' />
+                                        </Iconbutton>
+                                    </Stack> -->
                                 </td>
                             </tr>
                             <!-- )
                             })} -->
-
-
                         </TableBody>
                     </table>
-                    <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
-                        count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage} /> -->
-                </Card>
-            </div>
-
+                </TableContainer>
+                <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
+                    count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage} /> -->
+            </Card>
         </div>
-
-
+        <div class=' col-span-6'></div>
+        <!-- <div class=' col-span-2 m-6'>
+            {showAlert && (
+            <Alert variant="filled" severity={alertSeverity} onClose={()=> setShowAlert(false)}>
+                {alertMessage}
+            </Alert>
+            )}
+        </div> -->
     </div>
 </body>
 

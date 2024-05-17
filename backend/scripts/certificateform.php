@@ -25,7 +25,8 @@ if ($action == 'certificateApplication') {
         $stmt = $conn->prepare($query);
 
         // Generating request ID
-        function generateRandomString($length) {
+        function generateRandomString($length)
+        {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $randomString = '';
             for ($i = 0; $i < $length; $i++) {
@@ -43,7 +44,7 @@ if ($action == 'certificateApplication') {
             echo '
             <script>
                 alert("Info has successfully been added");
-                location.href="../../Frontend/Client/NewRequest.html";
+                location.href="../../Frontend/Client/NewRequest.php";
             </script>';
         } else {
             echo "Error: " . $stmt->error;

@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_certificate WHERE status = 'Pending'";
+$certificates = $conn->query($sql);
+
+
+
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,9 +20,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="shortcut icon" href="../src/AIT_CREST.png" type="image/x-icon">
-            <title>Admin Deferment Requests</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="../src/AIT_CREST.png" type="image/x-icon">
+    <title>Admin Deferment Requests</title>
 </head>
 
 <body>
@@ -38,21 +51,21 @@
 
                     <ul class=' text-white px-4  cursor-pointer '>
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDash.html">
+                            <a href="./AdminDash.php">
                                 <DashboardIcon fontSize='large' class=' ' />
                                 DASHBOARD
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
-                            <a href="./AdminCardRenewal.html">
+                            <a href="./AdminCardRenewal.php">
                                 <CreditCardIcon fontSize='large' class=' ' />
                                 ID CARD RENEWALS
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminTranscript.html">
+                            <a href="./AdminTranscript.php">
                                 <CardMembershipRounded fontSize='large' class='' />
                                 TRANSCRIPT APPLICATIONS
                             </a>
@@ -60,21 +73,21 @@
 
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="AdminCertificate.html">
+                            <a href="AdminCertificate.php">
                                 <MilitaryTechIcon fontSize='large' class=' ' />
                                 CERTIFICATE APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./admindeferment.html">
+                            <a href="./admindeferment.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 DEFERMENT APPLICATION
                             </a>
                         </li>
 
                         <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="AdminIntroductory.html">
+                            <a href="AdminIntroductory.php">
                                 <ExitToAppIcon fontSize='large' class=' ' />
                                 INTRODUCTORY LETTER
                             </a>
@@ -186,4 +199,4 @@
     </div>
 </body>
 
-</html>
+</php>
