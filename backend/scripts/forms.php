@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// PHPMailer('display_errors', 1);
 
 
 require_once './config.php';
-require_once './mailer.php';
+// require_once './mailer.php';
 
 $action = $_GET['action'];
 
@@ -106,11 +106,11 @@ if ($action == 'IDCardRenewal') {
         $DateApplied = (new DateTime())->format('Y-m-d');
 
         //Mailing
-        $to = $email;
-        $subject = 'Your Request ID';
-        $message = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
-        $headers = "From: agbesipreciousselasi@gmail.com\r\n";
-        $headers .= "Content-type: text/html\r\n";
+        // $to = $email;
+        // $subject = 'Your Request ID';
+        // $message = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
+        // $headers = "From: agbesipreciousselasi@gmail.com\r\n";
+        // $headers .= "Content-type: text/html\r\n";
 
 
 
@@ -252,7 +252,7 @@ if ($action == 'certificateApplication') {
 
         $created_at = (new DateTime())->format('Y-m-d');
 
-        $query = "INSERT INTO tbl_certificate (rqst_id, stuid, name, prog, level, phone, email, created_at, receipt) VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+        $query = "INSERT INTO tbl_certificate (rqst_id, stuid, name, prog, level, phone, delivery, email, created_at, receipt) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?)";
         $stmt = $conn->prepare($query);
 
         // Generating request ID
@@ -270,7 +270,7 @@ if ($action == 'certificateApplication') {
         // Function to generate random string of specified length
 
 
-        $stmt->bind_param('sssssssss', $rqst_id, $stuid, $name, $prog, $level, $phone, $email, $created_at, $uploadedFilePath);
+        $stmt->bind_param('ssssssssss', $rqst_id, $stuid, $name, $prog, $level, $phone, $delivery, $email, $created_at, $uploadedFilePath);
 
         if ($stmt->execute()) {
             echo '

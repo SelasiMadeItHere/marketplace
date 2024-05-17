@@ -28,14 +28,4 @@ if($action == 'decline-request'){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 ?>

@@ -143,17 +143,17 @@ $conn->close();
                 <table id="example" class="table table-striped text-xs">
                     <thead>
                         <tr>
-                            <th>SN</th>
-                            <th>REQUEST ID</th>
-                            <th>STUDENT ID</th>
-                            <th>NAME</th>
-                            <th>LEVEL</th>
-                            <th>RECEIPT</th>
-                            <th>PROGRAM</th>
-                            <th>EMAIL</th>
-                            <th>PHONE</th>
-                            <th>DELIVERY MODE</th>
-                            <th>ACTION</th>
+                            <th class="border-1 text-center">SN</th>
+                            <th class="border-1 text-center">REQUEST ID</th>
+                            <th class="border-1 text-center">STUDENT ID</th>
+                            <th class="border-1 text-center">NAME</th>
+                            <!-- <th>LEVEL</th> -->
+                            <th class="border-1 text-center">RECEIPT</th>
+                            <th class="border-1 text-center">PROGRAM</th>
+                            <!-- <th>EMAIL</th> -->
+                            <th class="border-1 text-center">PHONE</th>
+                            <th class="border-1 text-center">DELIVERY MODE</th>
+                            <th class="border-1 text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -161,12 +161,12 @@ $conn->close();
                         <?php $count = 1;
                         while ($certificate = $certificates->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo $count ?></td>
-                                <td><?php echo $certificate['rqst_id'] ?></td>
-                                <td><?php echo $certificate['stuid'] ?></td>
-                                <td><?php echo $certificate['name'] ?></td>
-                                <td><?php echo $certificate['level'] ?></td>
-                                <td>
+                                <td class="border-1"><?php echo $count ?></td>
+                                <td class="border-1"><?php echo $certificate['rqst_id'] ?></td>
+                                <td class="border-1"><?php echo $certificate['stuid'] ?></td>
+                                <td class="border-1"><?php echo $certificate['name'] ?></td>
+                                <!-- <td><?php echo $certificate['level'] ?></td> -->
+                                <td class="border-1">
                                     <a href="
                                     <?php
                                     $path = $certificate['receipt'];
@@ -175,11 +175,11 @@ $conn->close();
                                     echo $new_path;
                                     ?>"><?php echo "View"; ?></a>
                                 </td>
-                                <td><?php echo $certificate['prog'] ?></td>
-                                <td><?php echo $certificate['email'] ?></td>
-                                <td><?php echo $certificate['phone'] ?></td>
-                                <td><?php echo $certificate['delivery'] ?></td>
-                                <td>
+                                <td class="border-1"><?php echo $certificate['prog'] ?></td>
+                                <!-- <td><?php echo $certificate['email'] ?></td> -->
+                                <td class="border-1"><?php echo $certificate['phone'] ?></td>
+                                <td class="border-1"><?php echo $certificate['delivery'] ?></td>
+                                <td class="border-1" x>
                                     <button data-id="<?php echo $certificate['tblid'] ?>"
                                         class="btn btn-success approve">+</button>
                                     <button data-id="<?php echo $certificate['tblid'] ?>"

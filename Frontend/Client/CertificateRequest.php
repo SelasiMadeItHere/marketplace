@@ -106,7 +106,7 @@
                         </div>
 
                         <div class='grid-rows-2'>
-                            <select class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2'>
+                            <select class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2' name="prog">
                                 <option> --SELECT--</option>
                                 <option value='Business'> Business</option>
                                 <option value='Civil Engineering'> Civil Engineering</option>
@@ -126,7 +126,7 @@
 
                         <div class='grid-rows-2'>
                             <select class=' w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 py-1 px-2
-                                '>
+                                ' name="level">
                                 <option> --SELECT--</option>
                                 <option value='100'> 100 </option>
                                 <option value='200'> 200 </option>
@@ -170,13 +170,13 @@
 
                         <div class='pb-4 grid-cols-2 '>
                             <label>Delivery mode</label>
-                            <select name='delivery_mode'
-                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 p-2'
+                            <select name='delivery'
+                                class='w-full border-2 border-gray-700 rounded-md focus:outline-blue-800 p-2' 
                                 placeholder=' +233 123 456 7890'>
                                 <option>--SELECT--</option>
-                                <option name='post'>Post</option>
-                                <option name='email' >Email </option>
-                                <option name='campus' >Campus</option>
+                                <option value='post'>Post</option>
+                                <option value='email' >Email </option>
+                                <option value='campus' >Campus</option>
                             </select>
                         </div>
 

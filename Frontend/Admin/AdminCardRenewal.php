@@ -2,8 +2,8 @@
 include '../../backend/scripts/config.php';
 
 // Fetch data
-$sql = "SELECT * FROM tbl_certificate WHERE status = 'Pending'";
-$certificates = $conn->query($sql);
+$sql = "SELECT * FROM card_tbl WHERE status = 'Pending'";
+$cards = $conn->query($sql);
 
 
 
@@ -23,6 +23,9 @@ $conn->close();
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
     <title>Card Renewal</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
+
+
 </head>
 
 <body>
@@ -104,54 +107,54 @@ $conn->close();
 
 
                 <Card class='my-12 drop-shadow-sm'>
+                    <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Card Renewal
+                        Requests</h1>
+                    <table class=' overflow-y-auto drop-shadow-md w-full ' id="example"
+                        class="table table-striped text-xs">
 
-                    <table class=' overflow-y-auto drop-shadow-md w-full'>
-                        <h1 class=' text-white text-2xl font-semibold text-center w-full bg-sky-800 p-6'>Card Renewal
-                            Requests</h1>
 
-                        <tr class=" text-center">
-                            <th class=" text-bold border p-2" class=' border'></th>
-                            <th class=" text-bold border p-2" class=' border'>ID NO.</th>
-                            <th class=" text-bold border p-2" class=' border'>CAMPUS</th>
-                            <th class=" text-bold border p-2" class=' border'>SERVICE</th>
-                            <th class=" text-bold border p-2" class=' border'>TRACKING ID</th>
-                            <th class=" text-bold border p-2" class=' border text-center'>ACTION</th>
-                        </tr>
+                        <thead class=" text-center">
+                            <tr>
+                                <th class=" text-center border p-2"></th>
+                                <th class=" text-semibold border p-2 text-center">ID NO.</th>
+                                <th class=" text-semibold border p-2 text-center">REQUEST ID</th>
+                                <th class=" text-semibold border p-2 text-center">EMAIL</th>
+                                <th class=" text-semibold border p-2 text-center">CAMPUS</th>
+                                <th class=" text-semibold border p-2 text-center">SERVICE</th>
+                                <th class=" border p-2 text-center" class=' border text-center'>ACTION</th>
+                            </tr>
+
+                        </thead>
                         <!-- </th> -->
 
                         <tbody class=' text-center w-full'>
-                            <!-- {data.map((card, index) => {
-                            return ( -->
-                            <tr key={card.stuid} class=' border p-12 '>
-                                <td> {index + 1}</td>
-                                <td class=' text-left p-3 border'>{card.stuid}</td>
-                                <td class=' text-left p-3 border'>{card.campus}</td>
-                                <td class=' text-left p-3 border'>{card.service}</td>
-                                <td class=' text-left p-3 border'>{card.rqst_id}</td>
+                            <?php $count = 1;
+                            while ($card = $cards->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo $count ?></td>
+                                    <td><?php echo $card['stuid'] ?></td>
+                                    <td><?php echo $card['rqst_id'] ?></td>
+                                    <td><?php echo $card['email'] ?></td>
+                                    <td><?php echo $card['campus'] ?></td>
+                                    <td><?php echo $card['service'] ?></td>
+                                    <td>
+                                        <a href="
+                                    <?php
+                                    $path = $card['image'];
+                                    $tmp = substr($path, 0);
+                                    $new_path = '../../backend/uploads/' . $tmp;
+                                    echo $new_path;
+                                    ?>"><?php echo "View"; ?></a>
 
-                                <td class=' text-center p-3 border-y'>
-                                    <Stack direction='row' class=''>
-                                        <!-- <IDCardView card={card} />
-
-                                        <Iconbutton onClick={()=> finished(card.rqst_id)}>
-                                            <ThumbUpIcon variant='contained' color='success' />
-                                        </Iconbutton>
-
-                                        <Iconbutton variant='contained' color='error' 
-                                            <ThumbDownIcon />
-                                        </Iconbutton> -->
-                                    </Stack>
-                                </td>
-                            </tr>
-                            <!-- )
-                            })} -->
-
-
+                                        <button data-id="<?php echo $card['index'] ?>"
+                                            class="btn btn-success approve">+</button>
+                                        <button data-id="<?php echo $card['rqst_id'] ?>"
+                                            class="btn btn-danger decline">-</button>
+                                    </td>
+                                </tr>
+                                <?php $count++; endwhile ?>
                         </tbody>
                     </table>
-                    <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
-                        count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage} /> -->
                 </Card>
             </div>
 
@@ -159,6 +162,88 @@ $conn->close();
 
 
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        $('#example').DataTable();
+
+        // $("#btn").click(function (e) {
+        //     e.preventDefault();
+
+        //     alert("clicked")
+        // });
+
+
+        // $(".approve").click(function (e) {
+        //     e.preventDefault();
+        //     let id = $(this).data('id')
+
+        //     $.ajax({
+        //         type: "post",
+        //         url: "../../backend/scripts/ajax.php?action=dfaCard-approve&id=" + id,
+        //         success: function (response) {
+        //             // alert(response)
+        //             if (response == 1) {
+        //                 location.reload();
+        //             }
+        //         }
+        //     });
+
+        // });
+
+
+        $(".approve").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaCard-approve&id=" + id,
+                success: function (response) {
+                    if (response == 1) {
+                        location.reload();
+                    } else {
+                        console.log("Failed to approve: ", response);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error: ", status, error);
+                }
+            });
+        });
+
+
+
+
+        $(".decline").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaCard-decline&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        location.reload();
+                    }
+                }
+            });
+
+        });
+
+
+
+
+
+    </script>
+
 </body>
 
 </html>
