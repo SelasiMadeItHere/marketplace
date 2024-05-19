@@ -4,11 +4,11 @@ include './config.php';
 $action = $_GET['action'];
 
 //**********************DFA CERTIFICATE */
-if($action == 'approve-request'){
+if($action == 'approveCert'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_certificate SET status = 'Verified' WHERE tblid = $id ");
+    $sql = ("UPDATE tbl_certificate SET status = 'Verified' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
@@ -17,11 +17,11 @@ if($action == 'approve-request'){
 }
 
 
-if($action == 'decline-request'){
+if($action == 'declineCert'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_certificate SET status = 'Rejected' WHERE index = $id ");
+    $sql = ("UPDATE tbl_certificate SET status = 'Rejected' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {

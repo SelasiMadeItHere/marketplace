@@ -140,8 +140,8 @@ $conn->close();
                 <h1 class=' text-lg font-semibold text-center bg-sky-800 text-white p-6 '>Certificate Requests</h1>
 
 
-                <table id="example" class="table table-striped text-xs">
-                    <thead>
+                <table id="example" class="overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs">
+                    <thead class=" text-center">
                         <tr>
                             <th class="border-1 text-center">SN</th>
                             <th class="border-1 text-center">REQUEST ID</th>
@@ -178,10 +178,11 @@ $conn->close();
                                 <td class="border-1"><?php echo $certificate['phone'] ?></td>
                                 <td class="border-1"><?php echo $certificate['delivery'] ?></td>
                                 <td class="border-1" >
-                                    <button data-id="<?php echo $certificate['tblid'] ?>"
-                                        class="btn btn-success approve">+</button>
-                                    <button data-id="<?php echo $certificate['tblid'] ?>"
-                                        class="btn btn-danger decline">-</button>
+                                    <button data-id="<?php echo $certificate['rqst_id'] ?>"
+                                        class="btn btn-success approveCert">+</button>
+
+                                    <button data-id="<?php echo $certificate['rqst_id'] ?>"
+                                        class="btn btn-danger declineCert">-</button>
                                 </td>
                             </tr>
                             <?php $count++; endwhile ?>
@@ -195,7 +196,7 @@ $conn->close();
                             <th>NAME</th>
                             <th>RECEIPT</th>
                             <th>PROGRAM</th>
-                            <th>EMAIL</th>
+                            <!-- <th>EMAIL</th> -->
                             <th>PHONE</th>
                             <th>DELIVERY MODE</th>
                             <th>ACTION</th>
@@ -225,41 +226,47 @@ $conn->close();
     <script>
         $('#example').DataTable();
 
-        // $("#btn").click(function (e) {
-        //     e.preventDefault();
+        $("#btn").click(function (e) {
+            e.preventDefault();
 
-        //     alert("cliced")
-        // });
+            alert("cliced")
+        });
 
 
-        $(".approve").click(function (e) {
+        $(".approveCert").click(function (e) {
             e.preventDefault();
             let id = $(this).data('id')
 
             $.ajax({
                 type: "post",
-                url: "../../backend/scripts/ajax.php?action=approve-request&id=" + id,
+                url: "../../backend/scripts/ajax.php?action=approveCert&id=" + id,
                 success: function (response) {
                     // alert(response)
                     if (response == 1) {
+                        alert('REQUEST HAS BEEN VERIFIED')
                         location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
                     }
                 }
             });
 
         });
 
-        $(".decline").click(function (e) {
+        $(".declineCert").click(function (e) {
             e.preventDefault();
             let id = $(this).data('id')
 
             $.ajax({
                 type: "post",
-                url: "../../backend/scripts/ajax.php?action=decline-request&id=" + id,
+                url: "../../backend/scripts/ajax.php?action=declineCert&id=" + id,
                 success: function (response) {
                     // alert(response)
                     if (response == 1) {
+                        alert('REQUEST HAS BEEN REJECTED')
                         location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
                     }
                 }
             });
