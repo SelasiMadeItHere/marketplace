@@ -116,7 +116,7 @@ if($action == 'dfaTransApprove'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbltranscript_requests SET status = 'Verified' WHERE index = $id ");
+    $sql = ("UPDATE tbltranscript_requests SET status = 'Verified' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
@@ -128,7 +128,7 @@ if($action == 'dfaTransReject'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbltranscript_requests SET status = 'Rejected' WHERE index = $id ");
+    $sql = ("UPDATE tbltranscript_requests SET status = 'Rejected' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {

@@ -1,4 +1,22 @@
-<!DOCTYPE html>
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbltranscript_requests WHERE status = 'Pending'";
+$transcripts = $conn->query($sql);
+
+// $data = array();
+// if ($result->num_rows > 0) {
+//     while ($row = $result->fetch_assoc()) {
+//         $data[] = $row;
+//     }
+// }
+
+$conn->close();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +28,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
     <title>Transcript Requests</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
 </head>
 
 <body>
@@ -116,76 +136,125 @@
             </nav>
         </div>
 
-        <div class='mt-24 grid col-span-8 col-start-3 w-[95%]'>
-            <Card class='my-12 drop-shadow-2xl'>
+        <div class='mt-24 grid col-span-8 col-start-2 w-[95%]'>
+            <div class='my-12 drop-shadow-2xl'>
                 <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
-                <TableContainer>
-                    <table>
-                        <th class=" w-full ">
-                            <tr class=" text-center">
-                                <th class=' border-2 text-bold p-2'></th>
-                                <th class=' border-2 text-bold p-2'>ID NO.
-                                </th>
-                                <th class=' border-2 text-bold p-2'>REQUEST
-                                    ID</td>
-                                <th class=' border-2 text-bold p-2'>CONTACT
-                                </th>
-                                <th class=' border-2 text-bold p-2'>PROGRAM
-                                </th>
-                                <th class=' border-2 text-bold p-2'>LEVEL
-                                </th>
-                                <th class=' border-2 text-bold p-2'>
-                                    DELIVERY</th>
-                                <th class=' border-2 text-bold p-2'>STATUS
-                                </th>
-                                <th class=' border-2 text-bold p-2'>ACTION
-                                </th>
-                            </tr>
-                        </th>
+                <table id="example" class="overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs">
+                    <thead class=" w-full ">
+                        <tr class=" text-center">
+                            <th class=' border-2 text-bold p-2'></th>
+                            <th class=' border-2 text-bold p-2'>ID NO.
+                            </th>
+                            <th class=' border-2 text-bold p-2'>REQUEST
+                                ID</td>
+                            <th class=' border-2 text-bold p-2'>CONTACT
+                            </th>
+                            <th class=' border-2 text-bold p-2'>PROGRAM
+                            </th>
+                            <th class=' border-2 text-bold p-2'>LEVEL
+                            </th>
+                            <th class=' border-2 text-bold p-2'>
+                                DELIVERY</th>
+                            <th class=' border-2 text-bold p-2'>PURPOSE
+                            </th>
+                            <th class=' border-2 text-bold p-2'>ACTION
+                            </th>
+                        </tr>
+                    </thead>
 
-                        <TableBody class='text-sm'>
-                            <!-- {data.map((trans, index) => {
-                            return ( -->
+                    <tbody class='text-sm'>
+                        <?php $count = 1;
+                        while ($transcript = $transcripts->fetch_assoc()): ?>
                             <tr key={trans.rqst_id} class=' border p-12'>
-                                <th scope="row"> {index + 1}</th>
-                                <td class=' text-center p-3 border-2'>{trans.stuid}</td>
-                                <td class=' text-center p-3 border-2'>{trans.rqst_id}</td>
-                                <td class=' text-center p-3 border-2'>{trans.phone}</td>
-                                <td class=' text-center p-3 border-2'>{trans.prog}</td>
-                                <td class=' text-center p-3 border-2'>{trans.level}</td>
-                                <td class=' text-center p-3 border-2'>{trans.deliv_mode}</td>
-                                <td class=' text-center p-3 border-2'>{trans.status}</td>
-                                <td class=' text-center p-3 border-y'>
-                                    <!-- <Stack direction='row' class=''>
-                                        <TranscriptModal trans={trans} />
-                                        <Iconbutton onClick={()=> fintoregtrans(trans.rqst_id)}>
-                                            <ThumbUpIcon variant='contained' color='primary' />
-                                        </Iconbutton>
-                                        <Iconbutton onClick={()=> finrejtoregtrans(trans.rqst_id)}>
-                                            <ThumbDown color='error' />
-                                        </Iconbutton>
-                                    </Stack> -->
+                                <th scope="row"><?php echo $count ?></th>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['stuid'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['rqst_id'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['phone'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['prog'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['level'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['deliv_mode'] ?></td>
+                                <td class=' text-center p-3 border-2'><?php echo $transcript['purpose'] ?></td>
+                                <td class="border-1" >
+                                <a href="
+                                    <?php
+                                    $path = $transcript['receipt_path'];
+                                    $tmp = substr($path, 3);
+                                    $new_path = '../../backend/' . $tmp;
+                                    echo $new_path;
+                                    ?>"><?php echo "View"; ?></a>
+
+                                    <button data-id="<?php echo $transcript['rqst_id'] ?>"
+                                        class="btn btn-success dfaTransApprove">+</button>
+
+                                    <button data-id="<?php echo $transcript['rqst_id'] ?>"
+                                        class="btn btn-danger dfaTransReject">-</button>
                                 </td>
                             </tr>
-                            <!-- )
-                            })} -->
-                        </TableBody>
-                    </table>
-                </TableContainer>
-                <!-- <TablePagination class=' bottom-0' rowsPerPageOptions={[10, 15, 25, 100]} component="div"
-                    count={data.length} rowsPerPage={rowsPerPage} page={page} onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage} /> -->
-            </Card>
+                            <?php $count++; endwhile ?>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
         <div class=' col-span-6'></div>
-        <!-- <div class=' col-span-2 m-6'>
-            {showAlert && (
-            <Alert variant="filled" severity={alertSeverity} onClose={()=> setShowAlert(false)}>
-                {alertMessage}
-            </Alert>
-            )}
-        </div> -->
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        $('#example').DataTable();
+
+        $("#btn").click(function (e) {
+            e.preventDefault();
+
+            alert("cliced")
+        });
+
+
+        $(".dfaTransApprove").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaTransApprove&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN VERIFIED')
+                        location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });
+
+        $(".dfaTransReject").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaTransReject&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN REJECTED')
+                        location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>
