@@ -30,7 +30,7 @@ $conn->close();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="./AIT_CREST.png" type="image/x-icon">
-    <title>Card Renewal</title>
+    <title>Introductory Letter Application</title>
 </head>
 
 <body>
@@ -179,16 +179,25 @@ $conn->close();
                                 <td class=' text-left p-3 border'><?php echo $introductory['stuid'] ?></td>
                                 <td class=' text-left p-3 border'><?php echo $introductory['rqst_id'] ?></td>
                                 <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['pnumber'] ?></td>
                                 <td class=' text-left p-3 border'><?php echo $introductory['email'] ?></td>
                                 <td class=' text-left p-3 border'><?php echo $introductory['phone'] ?></td>
                                 <td class=' text-left p-3 border'><?php echo $introductory['purpose'] ?></td>
-                                <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td>
-                                <!-- <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td> -->
-                                <!-- <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td> -->
+                                <td class="border">
+                                        <a href="
+                                    <?php
+                                    $path = $introductory['receipt_path'];
+                                    $tmp = substr($path, 0);
+                                    $new_path = '../../backend/uploads/' . $tmp;
+                                    echo $new_path;
+                                    ?>"><?php echo "View"; ?></a>
 
-                                <td class=' text-center p-3 border-y'>
-                                    
-                                </td>
+                                        <button data-id="<?php echo $introductory['rqst_id'] ?>"
+                                            class="btn btn-success dfaIntroApprove">+</button>
+
+                                        <button data-id="<?php echo $introductory['rqst_id'] ?>"
+                                            class="btn btn-danger dfaIntroReject">-</button>
+                                    </td>
                             </tr>
                             <?php $count++; endwhile ?>
                         </tbody>
@@ -217,7 +226,7 @@ $conn->close();
         // });
 
 
-        $(".approve").click(function (e) {
+        $(".dfaIntroApprove").click(function (e) {
             e.preventDefault();
             let id = $(this).data('id')
 
@@ -227,24 +236,30 @@ $conn->close();
                 success: function (response) {
                     // alert(response)
                     if (response == 1) {
+                        alert('REQUEST HAS BEEN VERIFIED')
                         location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
                     }
                 }
             });
 
         });
 
-        $(".decline").click(function (e) {
+        $(".dfaIntroReject").click(function (e) {
             e.preventDefault();
             let id = $(this).data('id')
 
             $.ajax({
                 type: "post",
-                url: "../../backend/scripts/ajax.php?action=dfaTransReject&id=" + id,
+                url: "../../backend/scripts/ajax.php?action=dfaIntroReject&id=" + id,
                 success: function (response) {
                     // alert(response)
                     if (response == 1) {
+                        alert('REQUEST HAS BEEN REJECTED')
                         location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
                     }
                 }
             });

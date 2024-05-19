@@ -35,12 +35,14 @@ if($action == 'dfaCardApprove'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE card_tbl SET status = 'Verified' WHERE index = $id ");
+    $sql = ("UPDATE card_tbl SET status = 'Verified' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
         echo 0;
-    }
+    }   
+
+    
 }
 
 
@@ -48,21 +50,21 @@ if($action == 'dfaCardReject'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE card_tbl SET status = 'Rejected' WHERE index = $id ");
+    $sql = ("UPDATE card_tbl SET status = 'Rejected' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
         echo 0;
-    }
+    }   
 }
 
 
 //************************DFA DEFERMENT REQUEST */
-if($action == 'dfaDeferApprove'){
+if($action == 'dfaDefapprove'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_deferments SET status = 'Verified' WHERE index = $id ");
+    $sql = ("UPDATE tbl_deferments SET status = 'Verified' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
@@ -70,11 +72,11 @@ if($action == 'dfaDeferApprove'){
     }
 }
 
-if($action == 'dfaDeferReject'){
+if($action == 'dfaDefReject'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_deferments SET status = 'Rejected' WHERE index = $id ");
+    $sql = ("UPDATE tbl_deferments SET status = 'Rejected' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
@@ -88,7 +90,7 @@ if($action == 'dfaIntroApprove'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_introductory_requests SET status = 'Verified' WHERE index = $id ");
+    $sql = ("UPDATE tbl_introductory_requests SET status = 'Verified' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {
@@ -100,7 +102,7 @@ if($action == 'dfaIntroReject'){
     $id = $_GET['id'];
     // echo "ID $id received!";
 
-    $sql = ("UPDATE tbl_introductory_requests SET status = 'Rejected' WHERE index = $id ");
+    $sql = ("UPDATE tbl_introductory_requests SET status = 'Rejected' WHERE rqst_id = '$id' ");
     if($conn->query($sql)){
         echo 1;
     } else {

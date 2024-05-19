@@ -100,3 +100,47 @@ if ($action == 'transcriptApplication') {
     $conn->close();
 }
 
+
+
+**********************************************************************************
+WORKING AJAX METHOD FOR STATUS UPDATE
+**********************************************************************************
+  $(".dfaIntroApprove").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaIntroApprove&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN VERIFIED')
+                        location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });
+
+        $(".dfaIntroReject").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=dfaIntroReject&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN REJECTED')
+                        location.reload();
+                    }else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });

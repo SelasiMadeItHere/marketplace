@@ -148,8 +148,9 @@ $conn->close();
 
                                         <button data-id="<?php echo $card['rqst_id'] ?>"
                                             class="btn btn-success dfaCardapprove">+</button>
+
                                         <button data-id="<?php echo $card['rqst_id'] ?>"
-                                            class="btn btn-danger decline">-</button>
+                                            class="btn btn-danger dfaCardReject">-</button>
                                     </td>
                                 </tr>
                                 <?php $count++; endwhile ?>
@@ -183,37 +184,45 @@ $conn->close();
                 type: "post",
                 url: "../../backend/scripts/ajax.php?action=dfaCardApprove&id=" + id,
                 success: function (response) {
+                    // alert(response)
                     if (response == 1) {
+                        alert('ID HAS BEEN VERIFIED')
                         location.reload();
                     } else {
                         console.log("Failed to approve: ", response);
                     }
                 },
-                error: function (xhr, status, error) {
-                    console.error("AJAX Error: ", status, error);
-                }
+                // error: function (xhr, status, error) {
+                //     console.error("AJAX Error: ", status, error);
+                // }
             });
         });
 
 
 
 
-        $(".decline").click(function (e) {
+        $(".dfaCardReject").click(function (e) {
             e.preventDefault();
-            let id = $(this).data('id')
+            let id = $(this).data('id');
 
             $.ajax({
                 type: "post",
-                url: "../../backend/scripts/ajax.php?action=dfaCard-decline&id=" + id,
+                url: "../../backend/scripts/ajax.php?action=dfaCardReject&id=" + id,
                 success: function (response) {
                     // alert(response)
                     if (response == 1) {
+                        alert('ID HAS BEEN REJECTED')
                         location.reload();
+                    } else {
+                        console.log("Failed to approve: ", response);
                     }
-                }
+                },
+                // error: function (xhr, status, error) {
+                //     console.error("AJAX Error: ", status, error);
+                // }
             });
-
         });
+
 
 
 
