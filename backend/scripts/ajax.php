@@ -285,6 +285,8 @@ function DashIntroReport($conn, $id){
     $sqlReportPending = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='pending'");
     $sqlReportVerified = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='verified'");
     $sqlReportApproved = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='worked_on'");
+
+    
 }
 
 function DashCertReport($conn, $id){
@@ -303,6 +305,49 @@ function DashCardsReport($conn, $id){
     $sqlReportPending = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='pending'");
     $sqlReportVerified = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='verified'");
     $sqlReportApproved = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='worked_on'");
+
+    function getCount($conn, $sql) {
+        $result = $conn->query($sql);
+        if ($result === false) {
+            return false;
+        }
+        $row = $result->fetch_assoc();
+        return $row['count'];
+    }
+    
+    // Execute the queries and fetch the results
+    $pendingCount = getCount($conn, $sqlReportPending);
+    if ($pendingCount === false) {
+        echo json_encode(['success' => false, 'message' => 'An error occurred while fetching pending count']);
+        $conn->close();
+        exit;
+    }
+    
+    $verifiedCount = getCount($conn, $sqlReportVerified);
+    if ($verifiedCount === false) {
+        echo json_encode(['success' => false, 'message' => 'An error occurred while fetching verified count']);
+        $conn->close();
+        exit;
+    }
+    
+    $approvedCount = getCount($conn, $sqlReportApproved);
+    if ($approvedCount === false) {
+        echo json_encode(['success' => false, 'message' => 'An error occurred while fetching approved count']);
+        $conn->close();
+        exit;
+    }
+    
+    // Prepare the data to be returned as JSON
+    $data = [
+        'pending' => $pendingCount,
+        'verified' => $verifiedCount,
+        'approved' => $approvedCount
+    ];
+    
+    echo json_encode(['success' => true, 'data' => $data]);
+    
+    // Close the connection
+    $conn->close();
 }
 
 function DashTransReport($conn, $id){

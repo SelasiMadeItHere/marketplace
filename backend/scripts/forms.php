@@ -252,7 +252,7 @@ if ($action == 'certificateApplication') {
 
         $created_at = (new DateTime())->format('Y-m-d');
 
-        $query = "INSERT INTO tbl_certificate (rqst_id, stuid, name, prog, level, phone, delivery, email, created_at, receipt) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?)";
+        $query = "INSERT INTO tbl_certificate (rqst_id, stuid, name, prog, level, phone, delivery, email, postal, created_at, receipt) VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
         $stmt = $conn->prepare($query);
 
         // Generating request ID
@@ -270,7 +270,7 @@ if ($action == 'certificateApplication') {
         // Function to generate random string of specified length
 
 
-        $stmt->bind_param('ssssssssss', $rqst_id, $stuid, $name, $prog, $level, $phone, $delivery, $email, $created_at, $uploadedFilePath);
+        $stmt->bind_param('sssssssssss', $rqst_id, $stuid, $name, $prog, $level, $phone, $delivery, $email, $postal, $created_at, $uploadedFilePath);
 
         if ($stmt->execute()) {
             echo '
