@@ -96,11 +96,6 @@ $conn->close();
 
                     <div class=' col-span-4'></div>
                     <div class=' col-span-3 m-2'>
-                        <!-- {showAlert && (
-                            <Alert variant="filled" severity={alertSeverity} onClose={() => setShowAlert(false)}>
-                                {alertMessage}
-                            </Alert>
-                        )} -->
                     </div>
                 </div>
 

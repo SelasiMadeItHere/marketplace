@@ -1,3 +1,21 @@
+<?php
+include '../../backend/scripts/config.php';
+
+// Fetch data
+$sql = "SELECT * FROM tbl_introductory_requests WHERE status = 'Verified'";
+$introductorys = $conn->query($sql);
+
+// $data = array();
+// if ($result->num_rows > 0) {
+//     while ($row = $result->fetch_assoc()) {
+//         $data[] = $row;
+//     }
+// }
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,86 +47,135 @@
                     </div>
                 </div>
             </div>
+            <!-- {/* <Lpane class='col-span-2' /> */} -->
         </div>
-        <!-- 
-        <div class=' text-black col-span-full row-auto'>
-            <Breadcrumbs arial-label=' breadcrumb' separator=">">
-                <Link href='/registrar' underline='hover'>HOME</Link>
-                <Link href='#' underline='hover'>INTRODUCTORY LETTERS</Link>
-            </Breadcrumbs>
-        </div> -->
+
+        <div class=' col-span-7 mx-6'>
 
 
-        <div class=' grid col-span-8 col-start-3 w-[95%]'>
+        </div>
 
-            <div class=' drop-shadow-sm'>
-                <h1 class=' font-semibold text-center bg-sky-800 text-white p-6 lg:text-2xl '>Introductory Letter
-                    Requests</h1>
-                <table class=' w-full'>
-                    <th>
-                        <tr>
-                            <td class=' border-2'></td>
-                            <td class=' p-2 font-bold text-center border-2'>ID NO. </td>
-                            <td class=' p-2 font-bold text-center border-2'>REQUEST ID</td>
-                            <td class=' p-2 font-bold text-center border-2'>PHONE </td>
-                            <td class=' p-2 font-bold text-center border-2'>RECEIPT </td>
-                            <!-- {/* <td class=' p-12 font-bold text-center' class=' border-2'>
-                                DATE</td> */} -->
-                            <td class=' p-2 font-bold text-center border-2'>ACTION
-                            </td>
+        <div class=' grid col-span-8 col-start-3 w-[90%]'>
+            <div class='drop-shadow-sm'>
+                <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
+
+                <table id="example" class="overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs">
+                    <thead class=" w-full ">
+                        <tr class=" text-center">
+                            <th class=' border-2 text-bold p-2'></th>
+                            <th class=' border-2 text-bold p-2'>ID NO.
+                            </th>
+                            <th class=' border-2 text-bold p-2'>REQUEST
+                                ID</td>
+                            <th class=' border-2 text-bold p-2'>CONTACT
+                            </th>
+                            <th class=' border-2 text-bold p-2'>PROGRAM
+                            </th>
+                            <th class=' border-2 text-bold p-2'>LEVEL
+                            </th>
+                            <th class=' border-2 text-bold p-2'>
+                                DELIVERY</th>
+                            <th class=' border-2 text-bold p-2'>PURPOSE
+                            </th>
+                            <th class=' border-2 text-bold p-2'>ACTION
+                            </th>
                         </tr>
-                    </th>
+                    </thead>
 
                     <tbody class='text-sm'>
-                        <!-- {data.map((introl, index) => {
-                        return ( -->
-                        <tr key={introl.rqst_id} class=' border p-12'>
-                            <th scope="row"> {index + 1}</th>
-                            <td class=' text-center p-3 border-2'>{introl.stuid}</td>
-                            <td class=' text-center p-3 border-2'>{introl.rqst_id}</td>
-                            <td class=' text-center p-3 border-2'>{introl.phone}</td>
-                            <td class=' text-center p-3 border-2'>{introl.for}</td>
-                            <!-- {/* <td class=' text-center p-3 border-2'>{new
-                                Date(introl.created_at).toISOString().slice(0, 10)}</td> */} -->
-                            <td class=' text-center p-3 border-2'>
-                                <!-- <Stack direction='row' class=' items-center'>
-                                    <IntroductoryModal introl={introl} />
+                        <?php $count = 1;
+                        while ($introductory = $introductorys->fetch_assoc()): ?>
+                            <tr key={trans.rqst_id} class=' border p-12'>
+                                <td> <?php echo $count ?></th>
+                                <td class=' text-left p-3 border'><?php echo $introductory['stuid'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['rqst_id'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['name'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['pnumber'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['email'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['phone'] ?></td>
+                                <td class=' text-left p-3 border'><?php echo $introductory['purpose'] ?></td>
+                                <td class="border">
+                                    <a href="
+                                    <?php
+                                    $path = $transcript['receipt_path'];
+                                    $tmp = substr($path, 3);
+                                    $new_path = '../../backend/' . $tmp;
+                                    echo $new_path;
+                                    ?>"><?php echo "View"; ?></a>
 
-                                    <Iconbutton onClick={()=> regapproved(introl.rqst_id)}>
-                                        <ThumbUpIcon variant='contained' color='primary' />
-                                    </Iconbutton>
-                                    <Iconbutton variant='contained' color='error' onClick={()=>
-                                        regrejects(introl.rqst_id)}
-                                        >
-                                        <ThumbDownIcon />
-                                    </Iconbutton>
-                                </Stack> -->
-                            </td>
-                        </tr>
-                        <!-- )
-                        })} -->
+                                    <button data-id="<?php echo $introductory['rqst_id'] ?>"
+                                        class="btn btn-success RegIntroApprove">+</button>
+
+                                    <button data-id="<?php echo $introductory['rqst_id'] ?>"
+                                        class="btn btn-danger RegIntroReject">-</button>
+                                </td>
+                            </tr>
+                            <?php $count++; endwhile ?>
                     </tbody>
                 </table>
-                <!-- <TablePagination class=' bottom-0'
-                    rowsPerPageOptions={[10, 15, 25, 100]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage} /> -->
             </div>
-
         </div>
-
-        <!-- <div class=' col-start-4 col-span-2'>
-            {showAlert && (
-                <Alert variant="filled" severity={alertSeverity} onClose={() => setShowAlert(false)}>
-                    {alertMessage}
-                </Alert>
-            )}
-        </div> -->
+        <div class=' col-span-6'></div>
     </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        $('#example').DataTable();
+
+        $("#btn").click(function (e) {
+            e.preventDefault();
+
+            alert("cliced")
+        });
+
+
+        $(".RegIntroApprove").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=RegIntroApprove&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN APPROVED')
+                        location.reload();
+                    } else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });
+
+        $(".RegIntroReject").click(function (e) {
+            e.preventDefault();
+            let id = $(this).data('id')
+
+            $.ajax({
+                type: "post",
+                url: "../../backend/scripts/ajax.php?action=RegIntroReject&id=" + id,
+                success: function (response) {
+                    // alert(response)
+                    if (response == 1) {
+                        alert('REQUEST HAS BEEN REJECTED')
+                        location.reload();
+                    } else {
+                        console.log("Failed to approve: ", response);
+                    }
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>

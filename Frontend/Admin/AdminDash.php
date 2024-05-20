@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include '../../backend/scripts/config.php';
 
 // Fetch data
@@ -8,7 +8,7 @@ $certificates = $conn->query($sql);
 
 
 $conn->close();
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">

@@ -137,4 +137,178 @@ if($action == 'dfaTransReject'){
 }
 
 
-//**************************** */
+
+
+
+//*********************************************************************REGISTRAR REQUEST HANDLER */
+
+//**********************REGISTRAR CERTIFICATE */
+if($action == 'RegapproveCert'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_certificate SET status = 'Approved' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+
+if($action == 'RegdeclineCert'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_certificate SET status = 'Rejected' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+
+//************************REGISTRAR CARD REQUESTS */
+if($action == 'RegCardApprove'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE card_tbl SET status = 'Approved' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }   
+
+    
+}
+
+
+if($action == 'RegCardReject'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE card_tbl SET status = 'Rejected' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }   
+}
+
+
+//************************REGISTRAR DEFERMENT REQUEST */
+if($action == 'RegDefapprove'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_deferments SET status = 'Approved' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+if($action == 'RegDefReject'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_deferments SET status = 'Rejected' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+
+//**************************REGISTRAR INTRODUCTORY REQUESTS */
+if($action == 'RegIntroApprove'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_introductory_requests SET status = 'Approved' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+if($action == 'RegIntroReject'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbl_introductory_requests SET status = 'Rejected' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+
+//***************************REGISTRAR TRANSCRIPT REQUESTS */
+if($action == 'RegTransApprove'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbltranscript_requests SET status = 'Approved' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+if($action == 'RegTransReject'){
+    $id = $_GET['id'];
+    // echo "ID $id received!";
+
+    $sql = ("UPDATE tbltranscript_requests SET status = 'Rejected' WHERE rqst_id = '$id' ");
+    if($conn->query($sql)){
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+
+
+
+
+
+// ********************************REPORTS
+// INTRO
+function DashIntroReport($conn, $id){
+    $sqlReportPending = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='pending'");
+    $sqlReportVerified = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='verified'");
+    $sqlReportApproved = ("SELECT COUNT(*) AS count FROM tbl_introductory_requests WHERE status='worked_on'");
+}
+
+function DashCertReport($conn, $id){
+    $sqlReportPending = ("SELECT COUNT(*) AS count FROM tbl_certificate WHERE status='pending'");
+    $sqlReportVerified = ("SELECT COUNT(*) AS count FROM tbl_certificate WHERE status='verified'");
+    $sqlReportApproved = ("SELECT COUNT(*) AS count FROM tbl_certificate WHERE status='worked_on'");
+}
+
+function DashDeferReport($conn, $id){
+    $sqlReportPending = ("SELECT COUNT(*) AS count FROM tbl_deferments WHERE status='pending'");
+    $sqlReportVerified = ("SELECT COUNT(*) AS count FROM tbl_deferments WHERE status='verified'");
+    $sqlReportApproved = ("SELECT COUNT(*) AS count FROM tbl_deferments WHERE status='worked_on'");
+}
+
+function DashCardsReport($conn, $id){
+    $sqlReportPending = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='pending'");
+    $sqlReportVerified = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='verified'");
+    $sqlReportApproved = ("SELECT COUNT(*) AS count FROM card_tbl WHERE status='worked_on'");
+}
+
+function DashTransReport($conn, $id){
+    $sqlReportPending = ("SELECT COUNT(*) AS count FROM tbltranscript_requests WHERE status='pending'");
+    $sqlReportVerified = ("SELECT COUNT(*) AS count FROM tbltranscript_requests WHERE status='verified'");
+    $sqlReportApproved = ("SELECT COUNT(*) AS count FROM tbltranscript_requests WHERE status='worked_on'");
+}
+
+
