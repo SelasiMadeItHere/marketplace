@@ -1,3 +1,10 @@
+<?php
+include "../../backend/scripts/config.php";
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,26 +111,67 @@
                                                 </div> -->
 
                                         <div class="py-4 px-5">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-danger" style="width:20%">
-                                                    Pending
-                                                    <pre>Your request is yet to be attended to by an officer</pre>
-                                                </div>
-                                                <div class="progress-bar bg-warning" style="width:20%">
-                                                    Approved
-                                                    <pre>The Registrar has approved of your request and has been assigned to an officer</pre>
-                                                </div>
-                                                <div class="progress-bar bg-info" style="width:20%">
-                                                    Verified
-                                                    <pre>Your payment for this service or request has been approved by the DFA</pre>
-                                                </div>
-                                                <div class="progress-bar bg-primary" style="width:20%">
-                                                    Worked On
-                                                </div>
-                                                <div class="progress-bar bg-success" style="width:20%">
-                                                    Ready
+                                            <?php
+                                            $status = 'Pending'; // Replace with actual status
+                                            $activeStep = 1; // Default active step
+                                            if ($status === 'Ready' || $status === 'worked_on') {
+                                                $activeStep = 5;
+                                            } elseif ($status === 'Approved') {
+                                                $activeStep = 3;
+                                            } elseif ($status === 'verified') {
+                                                $activeStep = 2;
+                                            } elseif ($status === 'rejected') {
+                                                $activeStep = -1;
+                                            } else {
+                                                $activeStep = 1;
+                                            }
+                                            ?>
+
+                                            <div class="my-20">
+                                                <div class="stepper">
+                                                    <div class="step <?php echo $activeStep === 1 ? 'active' : ''; ?>">
+                                                        <div class="step-label">Pending</div>
+                                                        <p>Your request is yet to be attended to by an officer</p>
+                                                    </div>
+                                                    <div class="step <?php echo $activeStep === 2 ? 'active' : ''; ?>">
+                                                        <div class="step-label">Verified</div>
+                                                        <p>Your payment for this service or request has been approved by
+                                                            the DFA</p>
+                                                    </div>
+                                                    <div class="step <?php echo $activeStep === 3 ? 'active' : ''; ?>">
+                                                        <div class="step-label">Approved</div>
+                                                        <p>The Registrar has approved your request and it has been
+                                                            assigned to an officer</p>
+                                                    </div>
+                                                    <div class="step <?php echo $activeStep === 4 ? 'active' : ''; ?>">
+                                                        <div class="step-label">Being Worked</div>
+                                                        <p>An officer is currently working on your request</p>
+                                                    </div>
+                                                    <div class="step <?php echo $activeStep === 5 ? 'active' : ''; ?>">
+                                                        <div class="step-label">Ready</div>
+                                                    </div>
                                                 </div>
                                             </div>
+
+                                            <style>
+                                                .stepper {
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                }
+
+                                                .step {
+                                                    margin: 10px 0;
+                                                }
+
+                                                .step-label {
+                                                    font-weight: bold;
+                                                }
+
+                                                .step.active .step-label {
+                                                    color: blue;
+                                                }
+                                            </style>
+
                                         </div>
 
 

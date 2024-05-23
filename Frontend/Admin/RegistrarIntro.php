@@ -55,11 +55,11 @@ $conn->close();
 
         </div>
 
-        <div class=' grid col-span-8 col-start-3 w-[90%]'>
-            <div class='drop-shadow-sm'>
+        <div class=' grid col-span-9 w-[100%] px-36 mt-24'>
+            <div class='drop-shadow-sm pb-36'>
                 <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
 
-                <table id="example" class="overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs">
+                <table id="example" class="overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs py-24">
                     <thead class=" w-full ">
                         <tr class=" text-center">
                             <th class=' border-2 text-bold p-2'></th>

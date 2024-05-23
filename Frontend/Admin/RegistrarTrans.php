@@ -55,7 +55,7 @@ $conn->close();
 
         </div>
 
-        <div class=' grid col-span-8 col-start-3 w-[90%]'>
+        <div class=' grid col-span-9 col-start-1 w-[100%] px-12'>
             <div class='drop-shadow-sm'>
                 <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6'>Transcripts Requests</h1>
 

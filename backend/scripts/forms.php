@@ -1,10 +1,15 @@
 <?php
 error_reporting(E_ALL);
 // PHPMailer('display_errors', 1);
+require '../vendor/autoload.php';
+
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 
 require_once './config.php';
-// require_once './mailer.php';
+// require_once 'mailer.php';
 
 $action = $_GET['action'];
 
@@ -105,15 +110,32 @@ if ($action == 'IDCardRenewal') {
 
         $DateApplied = (new DateTime())->format('Y-m-d');
 
+        
+            // $mail = new PHPMailer(true);
+            // $mail->isSMTP();
+            // $mail->Host = 'smtp.gmail.com';
+            // $mail->SMTPAuth = 'true';
+            // $mail ->Username = 'devselasi@gmail.com';
+            // $mail ->Password = '$<l@$!2001';
+            // $mail ->SMTPSecure = 'tls';
+            // $mail ->Port = 587;
+            // $mail ->setFrom('devselasi@gmail.com','AIT marketplace');
+            // $mail ->addAddress($email);
+            
         //Mailing
+        
+
+
         // $to = $email;
+        // $from = "devselasi@gmail.com";
         // $subject = 'Your Request ID';
         // $message = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
-        // $headers = "From: agbesipreciousselasi@gmail.com\r\n";
-        // $headers .= "Content-type: text/html\r\n";
+        // // $headers = "From: agbesipreciousselasi@gmail.com\r\n";
+        // // $headers .= "Content-type: text/html\r\n";
 
 
 
+       
 
         //Inserting Data
         $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
@@ -122,7 +144,7 @@ if ($action == 'IDCardRenewal') {
         $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $uploadedFilePath, $DateApplied);
 
         if ($stmt->execute()) {
-            if (mail($to, $subject, $message, $headers)) {
+            // if ( $mail ->send()) {
                 echo '
         <script>
         alert("Info has been added and your Request ID has been sent to your email.");
@@ -136,7 +158,7 @@ if ($action == 'IDCardRenewal') {
         }
         $conn->close();
     }
-}
+// }
 
 if ($action == 'introductoryLetter') {
     $uploadDirectory = '../uploads/';

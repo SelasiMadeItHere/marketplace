@@ -1,19 +1,20 @@
 <?php
 // chart.php
 
-header('Content-Type: text/html');
+// header('Content-Type: text/html');
 
 // Database connection settings
 include '../../Backend/Scripts/config.php';
 
 
 // Define the SQL queries
-$sqlReportPending = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='pending'";
-$sqlReportVerified = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='verified'";
-$sqlReportApproved = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='worked_on'";
+$sqlCardPending = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='pending'";
+$sqlCardVerified = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='verified'";
+$sqlCardApproved = "SELECT COUNT(*) AS count FROM card_tbl WHERE status='worked_on'";
 
 // Function to execute query and return the count
-function getCount($conn, $sql) {
+function getCount($conn, $sql)
+{
     $result = $conn->query($sql);
     if ($result === false) {
         return false;
@@ -23,21 +24,21 @@ function getCount($conn, $sql) {
 }
 
 // Execute the queries and fetch the results
-$pendingCount = getCount($conn, $sqlReportPending);
+$pendingCount = getCount($conn, $sqlCardPending);
 if ($pendingCount === false) {
     echo "An error occurred while fetching pending count";
     $conn->close();
     exit;
 }
 
-$verifiedCount = getCount($conn, $sqlReportVerified);
+$verifiedCount = getCount($conn, $sqlCardVerified);
 if ($verifiedCount === false) {
     echo "An error occurred while fetching verified count";
     $conn->close();
     exit;
 }
 
-$approvedCount = getCount($conn, $sqlReportApproved);
+$approvedCount = getCount($conn, $sqlCardApproved);
 if ($approvedCount === false) {
     echo "An error occurred while fetching approved count";
     $conn->close();
@@ -57,6 +58,7 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +71,7 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .card-header {
             text-align: center;
             font-size: 1.5rem;
@@ -77,6 +80,7 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
     <div class="card">
         <div class="card-header">ID Cards Requests</div>
@@ -117,4 +121,5 @@ $conn->close();
         });
     </script>
 </body>
+
 </html>

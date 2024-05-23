@@ -51,91 +51,9 @@ $conn->close();
                 </div>
             </div>
 
-
-            <nav class=' z-10 mt-24 h-screen left-0 w-[20%] fixed '>
-                <div class='h-screen bg-gray-900 drop-shadow-md rounded'>
-
-                    <ul class=' text-white px-4  cursor-pointer '>
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDash.php">
-                                <DashboardIcon fontSize='large' class=' ' />
-                                DASHBOARD
-                            </a>
-                        </li>
-
-                        <li class=' py-4 border-gray-500 border-b-2 ' to="/cardrenewal">
-                            <a href="./AdminCardRenewal.php">
-                                <CreditCardIcon fontSize='large' class=' ' />
-                                ID CARD RENEWALS
-                            </a>
-                        </li>
-
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminTranscript.php">
-                                <CardMembershipRounded fontSize='large' class='' />
-                                TRANSCRIPT APPLICATIONS
-                            </a>
-                        </li>
-
-
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href=" ./AdminCertificate.php">
-                                <MilitaryTechIcon fontSize='large' class=' ' />
-                                CERTIFICATE APPLICATION
-                            </a>
-                        </li>
-
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminDeferment.php">
-                                <ExitToAppIcon fontSize='large' class=' ' />
-                                DEFERMENT APPLICATION
-                            </a>
-                        </li>
-
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="./AdminIntroductory.php">
-                                <ExitToAppIcon fontSize='large' class=' ' />
-                                INTRODUCTORY LETTER
-                            </a>
-                        </li>
-
-                        <li class=' py-4 border-gray-500 border-b-2'>
-                            <a href="#">
-                                <Settings fontSize='large' class=' pr-2' />
-                                SETTINGS
-                            </a>
-                        </li>
-                    </ul>
-
-                    <!-- {/* LOGOS FOR FAQs OR POSING QUESTIONS */} -->
-                    <div class=''>
-                        <ul class=' inline-flex'>
-                            <li>
-                                <ChatBubbleLeftIcon class='text-white w-12' />
-                            </li>
-                            <li>
-                                <HomeIcon class='text-white w-12' />
-                            </li>
-                            <li>
-                                <TicketIcon class='text-white w-10' />
-                            </li>
-                            <li>
-                                <UserIcon class='text-white w-12' />
-                            </li>
-                            <li>
-                                <UserGroupIcon class='text-white w-12' />
-                            </li>
-                            <li>
-                                <BoltIcon class='text-white w-12' />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </nav>
         </div>
 
-        <div class='mt-24 grid col-span-8 col-start-2 w-[100%]'>
+        <div class='mt-24 grid col-span-8 w-[100%] p-12'>
             <div class='my-6 '>
                 <h1 class=' text-lg font-semibold text-center bg-sky-800 text-white p-6 '>Certificate Requests</h1>
 

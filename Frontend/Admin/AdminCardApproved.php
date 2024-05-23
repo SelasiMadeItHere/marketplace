@@ -49,12 +49,12 @@ $conn->close();
                     <div class='h-screen bg-gray-900 drop-shadow-sm rounded'>
 
                         <ul class=' text-white px-4  cursor-pointer '>
-                            <li class=' py-5 border-gray-500 border-b-2'>
-                                <a href="#">
+                            <!-- <li class=' py-5 border-gray-500 border-b-2'>
+                                <a href="./AdminCardRenewal.php">
                                     <DashboardIcon fontSize='large' class=' pr-3' />
                                     DASHBOARD
                                 </a>
-                            </li>
+                            </li> -->
 
                             <li class=' py-5 border-gray-500 border-b-2 ' to="/cardrenewal">
                                 <a href="./AdminCardRenewal.php">
@@ -87,7 +87,7 @@ $conn->close();
 
             <div class='mt-24 grid col-span-8 col-start-3 w-[95%]'>
                 <div class='my-12'>
-                    <h1 class=' text-2xl font-semibold text-center bg-red-600 text-white p-6 '> Approved Card Requests
+                    <h1 class=' text-2xl font-semibold text-center bg-sky-800 text-white p-6 '> Approved Card Requests
                     </h1>
                     <table class=' overflow-y-auto drop-shadow-md w-full border-1 table table-striped text-xs'
                         id="example">
