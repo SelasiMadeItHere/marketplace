@@ -95,112 +95,243 @@ if ($action == 'staffRegister') {
 
 }
 
+// if ($action == 'IDCardRenewal') {
+
+//     extract($_POST);
+//     //image upload
+//     $uploadDirectory = '../uploads/'; // Directory to save uploaded files
+//     $uploadedFileName = $_FILES['image']['name'];
+//     $uploadedFilePath = $uploadDirectory . (new DateTime())->format('Y-m-d-h-m-s') . $uploadedFileName;
+
+//     if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFilePath)) {
+//         //ID Generation
+//         $customText = 'Card-';
+//         $rqst_id = $customText . substr(uniqid(), 0, 6);
+
+
+//         $DateApplied = (new DateTime())->format('Y-m-d');
+
+
+//         $mail = new PHPMailer(true);
+//         $mail->isSMTP();
+//         $mail->Host = 'smtp.gmail.com';
+//         $mail->SMTPAuth = true;
+//         $mail->Username = 'devselasi@gmail.com';
+//         $mail->Password = '$<l@$!2001';
+//         $mail->SMTPSecure = 'tls';
+//         $mail->Port = 587;
+//         $mail->to = $email;
+//         // $mail->from = "devselasi@gmail.com";
+
+
+//         $mail->setFrom('devselasi@gmail.com', 'AIT marketplace');
+//         $mail->addAddress($email);
+
+//         //Mailing
+
+
+
+
+
+//         $mail->subject = 'Your Request ID';
+//         $mail->Body = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
+//         $mail->headers = "From: agbesipreciousselasi@gmail.com\r\n";
+//         // $headers .= "Content-type: text/html\r\n";
+
+
+
+
+
+//         //Inserting Data
+//         $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
+//         $stmt = $conn->prepare($query);
+
+//         $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $uploadedFilePath, $DateApplied);
+
+//         if ($stmt->execute()) {
+//             // Send the email only if the data is inserted successfully
+//             if ($mail->send()) {
+//                 echo '
+//             <script>
+//             alert("Info has been added and your Request ID has been sent to your email.");
+//             location.href="../../Frontend/Client/NewRequest.php";
+//             </script>';
+//             } else {
+//                 echo "Error: " . $stmt->error;
+//             }
+
+//             $stmt->close();
+//             $conn->close();
+
+//         }
+
+//     }
+// }
+
+
+
 if ($action == 'IDCardRenewal') {
     extract($_POST);
-    //image upload
-    $uploadDirectory = '../uploads/'; // Directory to save uploaded files
-    $uploadedFileName = $_FILES['image']['name'];
-    $uploadedFilePath = $uploadDirectory . (new DateTime())->format('Y-m-d-h-m-s') . $uploadedFileName;
 
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFilePath)) {
-        //ID Generation
-        $customText = 'Card-';
-        $rqst_id = $customText . substr(uniqid(), 0, 6);
+    // Check if image file is uploaded
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+        $uploadDirectory = '../uploads/'; // Directory to save uploaded files
+        $uploadedFileName = $_FILES['image']['name'];
+        $uploadedFilePath = $uploadDirectory . (new DateTime())->format('Y-m-d-H-i-s') . '-' . $uploadedFileName;
 
+        // Move the uploaded file
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadedFilePath)) {
+            // ID Generation
+            $customText = 'Card-';
+            $rqst_id = $customText . substr(uniqid(), 0, 6);
 
-        $DateApplied = (new DateTime())->format('Y-m-d');
+            // Initialize PHPMailer
+            $mail = new PHPMailer(true);
 
-        
-            // $mail = new PHPMailer(true);
-            // $mail->isSMTP();
-            // $mail->Host = 'smtp.gmail.com';
-            // $mail->SMTPAuth = 'true';
-            // $mail ->Username = 'devselasi@gmail.com';
-            // $mail ->Password = '$<l@$!2001';
-            // $mail ->SMTPSecure = 'tls';
-            // $mail ->Port = 587;
-            // $mail ->setFrom('devselasi@gmail.com','AIT marketplace');
-            // $mail ->addAddress($email);
-            
-        //Mailing
-        
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'devselasi@gmail.com'; // SMTP username
+                $mail->Password = 'oriqgvrzzoecjmtc'; // SMTP password
+                $mail->SMTPSecure = 'tls'; // Enable TLS encryption
+                $mail->Port = 587; // TCP port to connect to
 
+                // Recipients
+                $mail->setFrom('devselasi@gmail.com', 'AIT marketplace');
+                $mail->addAddress($email);
+                // $mail->to = $email;
 
-        // $to = $email;
-        // $from = "devselasi@gmail.com";
-        // $subject = 'Your Request ID';
-        // $message = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
-        // // $headers = "From: agbesipreciousselasi@gmail.com\r\n";
-        // // $headers .= "Content-type: text/html\r\n";
+                // Content
+                $mail->isHTML(true); // Set email format to HTML
+                $mail->Subject = 'Your Request ID';
+                $mail->Body = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
+                $mail->AltBody = 'Dear user, \n\nYour request ID is: ' . $rqst_id . '\n\nThank you for your request.';
 
+                // Inserting Data into Database
+                $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
+                $stmt = $conn->prepare($query);
 
+                $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $uploadedFilePath, $DateApplied);
 
-       
+                if ($stmt->execute()) {
+                    // Send the email only if the data is inserted successfully
+                    if ($mail->send()) {
+                        echo '<script>
+                        alert("Info has been added and your Request ID has been sent to your email.");
+                        location.href="../../Frontend/Client/NewRequest.php";
+                        </script>';
+                    } else {
+                        echo "Mailer Error: " . $mail->ErrorInfo;
+                    }
+                } else {
+                    echo "Database Error: " . $stmt->error;
+                }
 
-        //Inserting Data
-        $query = "INSERT INTO card_tbl (stuid, rqst_id, campus, service, email, image, DateApplied, status) VALUES (?,?,?,?,?,?,?, 'pending')";
-        $stmt = $conn->prepare($query);
-
-        $stmt->bind_param("sssssss", $stuid, $rqst_id, $campus, $service, $email, $uploadedFilePath, $DateApplied);
-
-        if ($stmt->execute()) {
-            // if ( $mail ->send()) {
-                echo '
-        <script>
-        alert("Info has been added and your Request ID has been sent to your email.");
-        location.href="../../Frontend/Client/NewRequest.php";
-    </script>';
-
-
-            } else {
-                echo "Error: " . $stmt->error;
+                $stmt->close();
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
+        } else {
+            echo "Failed to move uploaded file.";
         }
-        $conn->close();
+    } else {
+        echo "No file uploaded or there was an upload error.";
     }
-// }
+
+    $conn->close();
+}
+
+
+
+
 
 if ($action == 'introductoryLetter') {
     $uploadDirectory = '../uploads/';
     $uploadedFileName = $_FILES['receipt_path']['name'];
     $uploadedFilePath = $uploadDirectory . (new DateTime())->format('Y-m-d-h-m-s') . $uploadedFileName;
 
+    extract($_POST);
     if (move_uploaded_file($_FILES['receipt_path']['tmp_name'], $uploadedFilePath)) {
         // File successfully uploaded, proceed with database insertion
-        extract($_POST);
+        $customText = '-INTRO-';
+        $rqst_id = $stuid . $customText . substr(uniqid(), 0, 6);
 
-        $query = "INSERT INTO tbl_introductory_requests (rqst_id, stuid, name, phone, email, purpose, raddress, bname, pnumber, eaddress, receipt_path, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
-        $stmt = $conn->prepare($query);
+        // Initialize PHPMailer
+        $mail = new PHPMailer(true);
 
-        // Generating rqst ID
-        function generateRandomString($length)
-        {
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $randomString = '';
-            for ($i = 0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'devselasi@gmail.com'; // SMTP username
+            $mail->Password = 'oriqgvrzzoecjmtc'; // SMTP password
+            $mail->SMTPSecure = 'tls'; // Enable TLS encryption
+            $mail->Port = 587; // TCP port to connect to
+
+            // Recipients
+            $mail->setFrom('devselasi@gmail.com', 'AIT marketplace');
+            $mail->addAddress($email);
+
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = 'Your Request ID';
+            $mail->Body = 'Dear user, <br><br>Your request ID is: ' . $rqst_id . '<br><br>Thank you for your request.';
+            $mail->AltBody = 'Dear user, \n\nYour request ID is: ' . $rqst_id . '\n\nThank you for your request.';
+
+
+            $query = "INSERT INTO tbl_introductory_requests (rqst_id, stuid, name, phone, email, purpose, raddress, bname, pnumber, eaddress, receipt_path, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')";
+            $stmt = $conn->prepare($query);
+
+
+            if ($stmt->execute()) {
+                // Send the email only if the data is inserted successfully
+                if ($mail->send()) {
+                    echo '<script>
+                alert("Info has been added and your Request ID has been sent to your email.");
+                location.href="../../Frontend/Client/NewRequest.php";
+                </script>';
+                } else {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
+                }
+            } else {
+                echo "Database Error: " . $stmt->error;
             }
-            return $randomString;
+
+
+            // Generating rqst ID
+            function generateRandomString($length)
+            {
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $randomString = '';
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                }
+                return $randomString;
+            }
+            $rqst_id = $stuid . '-INTRO-' . generateRandomString(5);
+
+
+
+            // Bind parameters
+            $stmt->bind_param('sssissssssss', $rqst_id, $stuid, $name, $phone, $email, $purpose, $raddress, $bname, $pnumber, $eaddress, $uploadedFilePath, $created_at);
+
+            if ($stmt->execute()) {
+                echo '<script>alert("Request made successfully.")</script>';
+            } else {
+                echo "Error creating request.";
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }{
+            echo "Error uploading file.";
         }
-        $rqst_id = $stuid . '-INTRO-' . generateRandomString(5);
 
-
-
-        // Bind parameters
-        $stmt->bind_param('sssissssssss', $rqst_id, $stuid, $name, $phone, $email, $purpose, $raddress, $bname, $pnumber, $eaddress, $uploadedFilePath, $created_at);
-
-        if ($stmt->execute()) {
-            echo '<script>alert("Request made successfully.")</script>';
-        } else {
-            echo "Error creating request.";
-        }
-
-        $stmt->close();
-    } else {
-        echo "Error uploading file.";
+        $conn->close();
     }
-
-    $conn->close();
 }
 
 if ($action == 'defermentApplication') {
@@ -368,3 +499,4 @@ if ($action == 'transcriptApplication') {
     $conn->close();
 }
 
+?>
